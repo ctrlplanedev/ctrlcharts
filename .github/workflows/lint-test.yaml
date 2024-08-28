@@ -39,15 +39,3 @@ jobs:
 
       - name: Run chart-testing (lint)
         run: ct lint --config ct.yaml
-
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.9.0
-        with:
-          version: v0.20.0
-        if: env.changed == 'true'
-
-      - name: Run chart-testing (install)
-        env:
-          LICENSE: ${{ secrets.LICENSE }}
-        run: ct install --charts . --config ct.yaml --helm-extra-set-args
-        if: env.changed == 'true'

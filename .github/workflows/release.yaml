@@ -30,11 +30,3 @@ jobs:
         uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Add Helm Repo URL to Release
-        run: |
-          HELM_REPO_URL="https://sizzldev.github.io/ctrlplane-charts/"
-          RELEASE_ID=$(gh release list --limit 1 | awk '{print $1}')
-          gh release edit "$RELEASE_ID" --notes "You can add this Helm repository with: helm repo add my-repo $HELM_REPO_URL"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

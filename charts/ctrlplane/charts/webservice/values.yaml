@@ -32,6 +32,8 @@ pod: {}
 serviceAccount:
   create: false
   name: ""
+  annotations: {}
+  labels: {}
 
 resources:
   requests:

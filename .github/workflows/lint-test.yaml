@@ -13,29 +13,26 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4.2.0
         with:
-          version: v3.11.3
+          version: v3.14.4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.x'
+          check-latest: true
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.4.0
-        with:
-          version: v3.7.1
+        uses: helm/chart-testing-action@v2.7.0
 
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config ct.yaml)
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
           if [[ -n "$changed" ]]; then
-            echo "changed=true" >> $GITHUB_ENV
-          else
-            echo "changed=false" >> $GITHUB_ENV
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml
+        if: steps.list-changed.outputs.changed == 'true'
+        run: ct lint --target-branch ${{ github.event.repository.default_branch }}

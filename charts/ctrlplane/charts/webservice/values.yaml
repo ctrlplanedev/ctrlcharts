@@ -40,3 +40,6 @@ resources:
   limits:
     cpu: 4000m
     memory: 4Gi
+
+redis:
+  caCert: ""

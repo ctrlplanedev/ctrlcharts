@@ -1,0 +1,53 @@
+name: Lint and Test Charts
+
+on: pull_request
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    environment: Helm Charts
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.11.3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.4.0
+        with:
+          version: v3.7.1
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --config ct.yaml)
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> $GITHUB_ENV
+          else
+            echo "changed=false" >> $GITHUB_ENV
+          fi
+
+      - name: Run chart-testing (lint)
+        run: ct lint --config ct.yaml
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.9.0
+        with:
+          version: v0.20.0
+        if: env.changed == 'true'
+
+      - name: Run chart-testing (install)
+        env:
+          LICENSE: ${{ secrets.LICENSE }}
+        run: ct install --charts . --config ct.yaml --helm-extra-set-args
+        if: env.changed == 'true'

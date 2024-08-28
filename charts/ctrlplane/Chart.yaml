@@ -5,6 +5,11 @@ type: application
 version: 0.1.7
 appVersion: "1.16.0"
 
+maintainers:
+  - name: ctrlplane
+    email: support@ctrlplane.com
+    url: https://ctrlplane.dev
+
 dependencies:
   - name: webservice
     version: "*.*.*"

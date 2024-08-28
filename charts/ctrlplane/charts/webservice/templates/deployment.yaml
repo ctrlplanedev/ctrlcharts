@@ -38,6 +38,12 @@ spec:
       containers:
         - name: webservice
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          volumeMounts:
+            {{- if ne (include "ctrlplane.redisCaCert" .) "" }}
+            - name: {{ include "ctrlplane.chart" . }}-redis-ca
+              mountPath: /etc/ssl/certs/redis_ca.pem
+              subPath: redis_ca.pem
+            {{- end }}
           ports:
             - name: http
               containerPort: 3000
@@ -74,3 +80,12 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        {{- if ne (include "ctrlplane.redisCaCert" .) "" }}
+        - name: {{ include "ctrlplane.chart" . }}-redis-ca
+          secret:
+            secretName: {{ include "ctrlplane.chart" . }}-connections
+            items:
+              - key: REDIS_CA_CERT
+                path: redis_ca.pem
+        {{- end }}

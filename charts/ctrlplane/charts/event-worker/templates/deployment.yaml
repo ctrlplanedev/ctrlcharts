@@ -38,6 +38,12 @@ spec:
       containers:
         - name: event-worker
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          volumeMounts:
+            {{- if ne (include "ctrlplane.redisCaCert" .) "" }}
+            - name: {{ include "ctrlplane.chart" . }}-redis-ca
+              mountPath: /etc/ssl/certs/redis_ca.pem
+              subPath: redis_ca.pem
+            {{- end }}
           ports:
             - name: http
               containerPort: 3000
@@ -57,3 +63,12 @@ spec:
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        {{- if ne (include "ctrlplane.redisCaCert" .) "" }}
+        - name: {{ include "ctrlplane.chart" . }}-redis-ca
+          secret:
+            secretName: {{ include "ctrlplane.chart" . }}-connections
+            items:
+              - key: REDIS_CA_CERT
+                path: redis_ca.pem
+        {{- end }}

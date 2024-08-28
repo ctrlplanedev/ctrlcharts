@@ -10,6 +10,7 @@ global:
     host: ""
     port: 6379
     password: ""
+    caCert: ""
 
   postgresql:
     user: "ctrlplane"

@@ -2,8 +2,13 @@ apiVersion: v2
 name: ctrlplane
 description: Ctrlplane Helm chart for Kubernetes
 type: application
-version: 0.1.6
+version: 0.1.7
 appVersion: "1.16.0"
+
+maintainers:
+  - name: ctrlplane
+    email: support@ctrlplane.com
+    url: https://ctrlplane.dev
 
 dependencies:
   - name: webservice

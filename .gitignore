@@ -1,4 +1,10 @@
-*.tgz
 .vscode/
-!.cr-release-packages/*.tgz
 .DS_Store
+
+# Ignore all .tgz files
+*.tgz
+
+# But don't ignore .tgz files inside .cr-release-packages
+!.cr-release-packages/
+!.cr-release-packages/*.tgz
+!/charts/ctrlplane/.cr-release-packages/*.tgz

@@ -7,3 +7,4 @@
 # But don't ignore .tgz files inside .cr-release-packages
 !.cr-release-packages/
 !.cr-release-packages/*.tgz
+!/charts/ctrlplane/.cr-release-packages/*.tgz

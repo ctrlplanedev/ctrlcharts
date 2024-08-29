@@ -32,7 +32,7 @@ spec:
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctrlplane.chart" . }}-connections
+                  name: {{ .Release.Name }}-connections
                   key: POSTGRES_URL
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}

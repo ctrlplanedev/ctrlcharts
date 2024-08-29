@@ -1,3 +1,4 @@
 *.tgz
 .vscode/
 !.cr-release-packages/*.tgz
+.DS_Store

@@ -19,6 +19,12 @@ job:
   labels: {}
   annotations: {}
 
+serviceAccount:
+  create: false
+  name: ""
+  labels: {}
+  annotations: {}
+
 resources:
   requests:
     cpu: 500m

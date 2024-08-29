@@ -1,15 +1,15 @@
 dependencies:
 - name: webservice
   repository: file://charts/webservice
-  version: 0.1.1
+  version: 0.1.2
 - name: job-policy-checker
   repository: file://charts/job-policy-checker
-  version: 0.1.3
+  version: 0.1.4
 - name: migrations
   repository: file://charts/migrations
-  version: 0.1.4
+  version: 0.1.5
 - name: event-worker
   repository: file://charts/event-worker
-  version: 0.1.4
-digest: sha256:06c0e0205e2a1e401c7ee0c91685417f1009aa6e8a2c167b05c00e294ff4b226
-generated: "2024-08-27T21:33:21.473313-05:00"
+  version: 0.1.5
+digest: sha256:ec8e99b97ebffb2235418bcc5a86e75162fe19b1b1815e48d397770c8390dbc1
+generated: "2024-08-28T17:04:24.261293-07:00"

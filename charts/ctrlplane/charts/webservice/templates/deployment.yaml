@@ -43,6 +43,9 @@ spec:
               containerPort: 3000
               protocol: TCP
           env:
+            - name: BASE_URL
+              value: {{ .Values.global.fqdn }}
+
             - name: GOOGLE_CLIENT_ID
               value: {{ .Values.global.authProviders.google.clientId }}
             - name: GOOGLE_CLIENT_SECRET

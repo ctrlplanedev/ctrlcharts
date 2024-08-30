@@ -43,6 +43,11 @@ spec:
               containerPort: 3000
               protocol: TCP
           env:
+            - name: GOOGLE_CLIENT_ID
+              value: {{ .Values.global.authProviders.google.clientId }}
+            - name: GOOGLE_CLIENT_SECRET
+              value: {{ .Values.global.authProviders.google.clientSecret }}
+
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:

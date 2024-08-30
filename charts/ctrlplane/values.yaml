@@ -2,6 +2,11 @@ global:
   extraEnvFrom: {}
   extraEnv: {}
 
+  authProviders:
+    google:
+      clientId: ""
+      clientSecret: ""
+
   common:
     labels: {}
     annotations: {}

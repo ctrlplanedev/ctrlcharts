@@ -8,3 +8,5 @@
 !.cr-release-packages/
 !.cr-release-packages/*.tgz
 !/charts/ctrlplane/.cr-release-packages/*.tgz
+
+local.yaml

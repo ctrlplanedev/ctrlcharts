@@ -43,6 +43,8 @@ spec:
               containerPort: 3000
               protocol: TCP
           env:
+            - name: NEXT_PUBLIC_BASE_URL
+              value: {{ .Values.global.fqdn }}
             - name: BASE_URL
               value: {{ .Values.global.fqdn }}
             - name: AUTH_URL

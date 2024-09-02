@@ -54,9 +54,9 @@ spec:
                   name: {{ .Release.Name }}-connections
                   key: POSTGRES_URL
             - name: GITHUB_BOT_APP_ID
-              value: {{ .Values.github.bot.appId }}
+              value: {{ .Values.global.github.bot.appId }}
             - name: GITHUB_BOT_CLIENT_ID
-              value: {{ .Values.github.bot.clientId }}
+              value: {{ .Values.global.github.bot.clientId }}
             - name: GITHUB_BOT_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:

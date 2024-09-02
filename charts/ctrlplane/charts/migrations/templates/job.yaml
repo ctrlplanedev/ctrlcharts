@@ -9,7 +9,7 @@ metadata:
     {{- end }}
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-delete-policy": before-hook-creation
     {{- if .Values.job.annotations }}
     {{-   toYaml .Values.job.annotations | nindent 4 }}
     {{- end }}
@@ -32,7 +32,7 @@ spec:
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctrlplane.chart" . }}-connections
+                  name: {{ .Release.Name }}-connections
                   key: POSTGRES_URL
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}

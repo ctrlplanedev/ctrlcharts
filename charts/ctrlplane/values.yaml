@@ -1,6 +1,13 @@
 global:
+  fqdn: ""
+
   extraEnvFrom: {}
   extraEnv: {}
+
+  authProviders:
+    google:
+      clientId: ""
+      clientSecret: ""
 
   common:
     labels: {}

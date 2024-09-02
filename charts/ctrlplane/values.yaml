@@ -25,14 +25,15 @@ global:
     port: 6379
     database: "ctrlplane"
 
-  github:
-    url: "https://github.com"
-    bot:
-      name: ""
-      clientId: ""
-      appId: ""
-      clientSecret: ""
-      privateKey: ""
+  integrations:
+    github:
+      url: "https://github.com"
+      bot:
+        name: ""
+        clientId: ""
+        appId: ""
+        clientSecret: ""
+        privateKey: ""
 
 webservice:
   install: true

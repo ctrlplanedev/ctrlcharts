@@ -53,6 +53,20 @@ spec:
                 secretKeyRef:
                   name: {{ include "ctrlplane.chart" . }}-connections
                   key: POSTGRES_URL
+            - name: GITHUB_BOT_APP_ID
+              value: {{ .Values.github.bot.appId }}
+            - name: GITHUB_BOT_CLIENT_ID
+              value: {{ .Values.github.bot.clientId }}
+            - name: GITHUB_BOT_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ctrlplane.chart" . }}-connections
+                  key: GITHUB_BOT_CLIENT_SECRET
+            - name: GITHUB_BOT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ctrlplane.chart" . }}-connections
+                  key: GITHUB_BOT_PRIVATE_KEY
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
           resources:

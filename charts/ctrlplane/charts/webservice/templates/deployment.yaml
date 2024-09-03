@@ -74,11 +74,11 @@ spec:
               value: {{ include "ctrlplane.githubUrl" . }}
             {{- with (include "ctrlplane.githubBot" . | fromYaml) }}
             - name: GITHUB_BOT_NAME
-              value: {{ .name }}
+              value: {{ .name | quote }}
             - name: GITHUB_BOT_APP_ID
-              value: {{ .appId }}
+              value: {{ .appId | quote }}
             - name: GITHUB_BOT_CLIENT_ID
-              value: {{ .clientId }}
+              value: {{ .clientId | quote }}
             - name: GITHUB_BOT_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:

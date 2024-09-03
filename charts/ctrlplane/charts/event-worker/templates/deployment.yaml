@@ -55,9 +55,9 @@ spec:
                   key: POSTGRES_URL
             {{- with (include "ctrlplane.githubBot" . | fromYaml) }}
             - name: GITHUB_BOT_APP_ID
-              value: {{ .appId }}
+              value: {{ .appId | quote }}
             - name: GITHUB_BOT_CLIENT_ID
-              value: {{ .clientId }}
+              value: {{ .clientId | quote }}
             - name: GITHUB_BOT_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:

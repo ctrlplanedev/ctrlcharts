@@ -10,3 +10,4 @@
 !/charts/ctrlplane/.cr-release-packages/*.tgz
 
 local.yaml
+local-values.yaml

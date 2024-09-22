@@ -1,7 +1,14 @@
 nameOverride: ""
 fullnameOverride: ""
 
-config: {}
+config:
+  service:
+    pipelines:
+      traces:
+        exporters: [debug]
+        processors: [batch, memory_limiter]
+        receivers: [otlp]
+
 presets:
   receivers:
     hostMetrics: false

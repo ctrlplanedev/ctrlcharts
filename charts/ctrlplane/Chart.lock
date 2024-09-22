@@ -11,5 +11,8 @@ dependencies:
 - name: event-worker
   repository: file://charts/event-worker
   version: 0.1.6
-digest: sha256:6ae2f2e02680d3694444d67aba248dfd3a0352678d7c58d2bce30c8bfdf7be1f
-generated: "2024-08-28T21:15:56.001463-05:00"
+- name: otel
+  repository: file://charts/otel
+  version: 0.1.0
+digest: sha256:a787c72024ab9ccde1b53b471ea5e8c23583f20649e8ae9bd9c48bcbc3a835f6
+generated: "2024-09-21T23:19:52.598333-04:00"

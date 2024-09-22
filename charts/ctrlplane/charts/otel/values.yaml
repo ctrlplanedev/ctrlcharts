@@ -1,0 +1,66 @@
+nameOverride: ""
+fullnameOverride: ""
+
+config: {}
+presets:
+  receivers:
+    hostMetrics: false
+    logsCollection: false
+    kubeletMetrics: false
+    kubernetesEvent: false
+    kubernetesCluster: false
+    statsd: true
+    otlp: true
+
+image:
+  repository: otel/opentelemetry-collector-contrib
+  tag: 0.109.0
+  pullPolicy: IfNotPresent
+  # pullSecrets: []
+
+# Tolerations for pod scheduling
+tolerations: []
+
+extraEnv: {}
+extraEnvFrom: {}
+
+extraCors: []
+
+service: {}
+
+pod:
+  securityContext:
+    fsGroup: 0
+    fsGroupChangePolicy: "OnRootMismatch"
+  labels: {}
+  annotations: {}
+
+clusterRole:
+  annotations: {}
+  labels: {}
+
+common:
+  labels: {}
+  annotations: {}
+
+deployment:
+  labels: {}
+  annotations: {}
+
+configMap:
+  annotations: {}
+  labels: {}
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 300Mi
+  limits:
+    cpu: 1000m
+    memory: 750Mi
+
+serviceAccount:
+  create: true
+
+role: {}
+roleBinding: {}

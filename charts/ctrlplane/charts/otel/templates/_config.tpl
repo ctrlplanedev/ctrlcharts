@@ -41,8 +41,6 @@ exporters:
 {{- define "otel.extensions" -}}
 extensions:
   health_check: {}
-  memory_ballast:
-    size_in_percentage: 40
 {{- end }}
 
 {{- define "otel.processors" -}}
@@ -91,7 +89,6 @@ processors:
 service:
   extensions:
   - health_check
-  - memory_ballast
   pipelines: {}
   telemetry:
     metrics:

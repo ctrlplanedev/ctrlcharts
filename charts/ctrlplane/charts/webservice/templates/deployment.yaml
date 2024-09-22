@@ -88,7 +88,7 @@ spec:
                   name: {{ .secretRef }}
                   key: GITHUB_BOT_PRIVATE_KEY
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: http://{{ .Release.Name }}-otel:4318
+              value: http://{{ $.Release.Name }}-otel:4318
             {{- end }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}

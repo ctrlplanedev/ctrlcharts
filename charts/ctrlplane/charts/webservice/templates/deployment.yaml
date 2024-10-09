@@ -82,11 +82,19 @@ spec:
                 secretKeyRef:
                   name: {{ .secretRef }}
                   key: GITHUB_BOT_CLIENT_SECRET
+                  optional: true
             - name: GITHUB_BOT_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .secretRef }}
                   key: GITHUB_BOT_PRIVATE_KEY
+                  optional: true
+            - name: GITHUB_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretRef }}
+                  key: GITHUB_WEBHOOK_SECRET
+                  optional: true
             {{- end }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}

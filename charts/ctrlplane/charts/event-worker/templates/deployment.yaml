@@ -63,11 +63,13 @@ spec:
                 secretKeyRef:
                   name: {{ .secretRef }}
                   key: GITHUB_BOT_CLIENT_SECRET
+                  optional: true
             - name: GITHUB_BOT_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .secretRef }}
                   key: GITHUB_BOT_PRIVATE_KEY
+                  optional: true
             - name: GITHUB_BOT_NAME
               value: {{ .name }}
             {{- end }}

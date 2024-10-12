@@ -48,9 +48,9 @@ spec:
             - name: AUTH_URL
               value: {{ .Values.global.fqdn }}
 
-            - name: GOOGLE_CLIENT_ID
+            - name: AUTH_GOOGLE_CLIENT_ID
               value: {{ .Values.global.authProviders.google.clientId }}
-            - name: GOOGLE_CLIENT_SECRET
+            - name: AUTH_GOOGLE_CLIENT_SECRET
               value: {{ .Values.global.authProviders.google.clientSecret }}
 
             - name: REDIS_URL

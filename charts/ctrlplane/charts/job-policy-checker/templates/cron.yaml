@@ -37,4 +37,5 @@ spec:
                       key: POSTGRES_URL
                 {{- include "ctrlplane.extraEnv" . | nindent 16 }}
                 {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 16 }}
-
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}

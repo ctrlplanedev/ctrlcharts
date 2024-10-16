@@ -14,5 +14,5 @@ dependencies:
 - name: otel
   repository: file://charts/otel
   version: 0.1.0
-digest: sha256:c3b1f8393e0aeb6e9250b0750006c46660110dffc60f51f579b6ea7903d4270c
-generated: "2024-10-09T18:31:41.82059-07:00"
+digest: sha256:c82fcafd41d5b70781ad64b375a7253aebf91744fa4927cd0fc1fdf2c3ad876d
+generated: "2024-10-16T12:54:45.268731-04:00"

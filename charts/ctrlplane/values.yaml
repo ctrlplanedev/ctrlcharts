@@ -8,6 +8,10 @@ global:
     google:
       clientId: ""
       clientSecret: ""
+    oidc:
+      issuer: ""
+      clientId: ""
+      clientSecret: ""
 
   common:
     labels: {}
@@ -15,14 +19,14 @@ global:
 
   redis:
     host: ""
-    port: 6379
+    port: "6379"
     password: ""
 
   postgresql:
     user: "ctrlplane"
     password: "ctrlplane"
     host: ""
-    port: 6379
+    port: "5432"
     database: "ctrlplane"
 
   integrations:
@@ -50,3 +54,9 @@ ingress:
   class: ""
   labels: {}
   annotations: {}
+
+event-worker:
+  install: true
+
+otel:
+  install: true

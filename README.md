@@ -10,3 +10,8 @@ Features:
 - **Active Development**: Continuously updated to keep up with the latest best practices and features in the ctrlplane ecosystem.
 
 Get started with ctrlplanedev/ctrlplane-charts today and supercharge your Kubernetes deployments!
+
+```bash
+helm repo add ctrlcharts https://charts.ctrlplane.dev
+helm repo update
+```

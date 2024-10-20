@@ -43,7 +43,7 @@ global:
 webservice:
   install: true
 
-job-policy-checker:
+jobs:
   install: true
 
 migrations:

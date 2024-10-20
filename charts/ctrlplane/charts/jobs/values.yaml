@@ -2,7 +2,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: ctrlplane/job-policy-checker
+  repository: ctrlplane/jobs
   tag: latest
   pullPolicy: Always
 

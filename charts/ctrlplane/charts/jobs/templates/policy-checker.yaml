@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "jobs.fullname" . }}
+  name: {{ include "jobs.fullname" . }}-policy-checker
   labels:
     {{- if .Values.cron.labels -}}
     {{-   toYaml .Values.cron.labels | nindent 4 }}
@@ -19,7 +19,7 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-            - name: jobs
+            - name: policy-checker
               image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["node"]

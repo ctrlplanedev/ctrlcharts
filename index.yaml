@@ -3,6 +3,41 @@ entries:
   ctrlplane:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-10-20T05:26:59.922910113Z"
+    dependencies:
+    - condition: webservice.install
+      name: webservice
+      repository: file://charts/webservice
+      version: '*.*.*'
+    - condition: jobs.install
+      name: jobs
+      repository: file://charts/jobs
+      version: '*.*.*'
+    - condition: migrations.install
+      name: migrations
+      repository: file://charts/migrations
+      version: '*.*.*'
+    - condition: event-worker.install
+      name: event-worker
+      repository: file://charts/event-worker
+      version: '*.*.*'
+    - condition: otel.install
+      name: otel
+      repository: file://charts/otel
+      version: '*.*.*'
+    description: Ctrlplane Helm chart for Kubernetes
+    digest: b33cba35cf00a54e0efc34687c11831bf73268ff03fa2fce06315de4138c4c48
+    maintainers:
+    - email: support@ctrlplane.com
+      name: ctrlplane
+      url: https://ctrlplane.dev
+    name: ctrlplane
+    type: application
+    urls:
+    - ctrlplane-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-10-18T06:04:00.406729479Z"
     dependencies:
     - condition: webservice.install
@@ -981,4 +1016,4 @@ entries:
     urls:
     - ctrlplane-0.1.6.tgz
     version: 0.1.6
-generated: "2024-10-18T06:04:00.406980055Z"
+generated: "2024-10-20T05:26:59.923361764Z"

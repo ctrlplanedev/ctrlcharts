@@ -1,18 +1,18 @@
 dependencies:
-  - name: webservice
-    repository: file://charts/webservice
-    version: 0.1.4
-  - name: jobs
-    repository: file://charts/jobs
-    version: 0.1.5
-  - name: migrations
-    repository: file://charts/migrations
-    version: 0.1.6
-  - name: event-worker
-    repository: file://charts/event-worker
-    version: 0.1.7
-  - name: otel
-    repository: file://charts/otel
-    version: 0.1.0
-digest: sha256:c82fcafd41d5b70781ad64b375a7253aebf91744fa4927cd0fc1fdf2c3ad876d
-generated: "2024-10-16T12:54:45.268731-04:00"
+- name: webservice
+  repository: file://charts/webservice
+  version: 0.1.4
+- name: jobs
+  repository: file://charts/jobs
+  version: 0.1.5
+- name: migrations
+  repository: file://charts/migrations
+  version: 0.1.6
+- name: event-worker
+  repository: file://charts/event-worker
+  version: 0.1.7
+- name: otel
+  repository: file://charts/otel
+  version: 0.1.0
+digest: sha256:d8af69c3c9973484b53d2bda085cf4966ddf7186f5d5ff0ddc81c704fbee89bc
+generated: "2024-10-20T01:26:33.172861-04:00"

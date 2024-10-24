@@ -48,6 +48,12 @@ spec:
             - name: AUTH_URL
               value: {{ .Values.global.fqdn }}
 
+            - name: VARIABLES_AES_256_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-encryption-key
+                  key: AES_256_KEY
+
             {{- if ne .Values.global.authProviders.google.clientId "" }}
             - name: AUTH_GOOGLE_CLIENT_ID
               value: {{ .Values.global.authProviders.google.clientId }}

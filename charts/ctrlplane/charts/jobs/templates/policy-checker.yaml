@@ -35,6 +35,11 @@ spec:
                     secretKeyRef:
                       name: {{ .Release.Name }}-connections
                       key: POSTGRES_URL
+                - name: VARIABLES_AES_256_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Release.Name }}-encryption-key
+                      key: AES_256_KEY
                 {{- include "ctrlplane.extraEnv" . | nindent 16 }}
                 {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 16 }}
               resources:

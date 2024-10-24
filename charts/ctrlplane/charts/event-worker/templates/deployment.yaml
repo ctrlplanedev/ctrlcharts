@@ -53,6 +53,11 @@ spec:
                 secretKeyRef:
                   name: {{ .Release.Name }}-connections
                   key: POSTGRES_URL
+            - name: VARIABLES_AES_256_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-encryption-key
+                  key: AES_256_KEY
             {{- with (include "ctrlplane.githubBot" . | fromYaml) }}
             - name: GITHUB_BOT_APP_ID
               value: {{ .appId | quote }}

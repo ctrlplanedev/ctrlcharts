@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "jobs.fullname" . }}-expired-env-checker
+  labels:
+    {{- if .Values.cron.labels -}}
+    {{-   toYaml .Values.cron.labels | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- if .Values.cron.annotations -}}
+    {{-   toYaml .Values.cron.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  concurrencyPolicy: {{ .Values.cron.concurrencyPolicy }}
+  schedule: {{ .Values.cron.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: expired-env-checker
+              image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command: ["node"]
+              args: ["index.js", "-r", "-j expired-env-checker"]
+              env:
+                - name: REDIS_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Release.Name }}-connections
+                      key: REDIS_URL
+                - name: POSTGRES_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Release.Name }}-connections
+                      key: POSTGRES_URL
+                - name: VARIABLES_AES_256_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Release.Name }}-encryption-key
+                      key: AES_256_KEY
+                {{- include "ctrlplane.extraEnv" . | nindent 16 }}
+                {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 16 }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}

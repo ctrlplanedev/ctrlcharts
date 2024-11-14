@@ -60,3 +60,6 @@ event-worker:
 
 otel:
   install: true
+
+pty-proxy:
+  install: true

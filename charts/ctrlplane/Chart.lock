@@ -14,5 +14,8 @@ dependencies:
 - name: otel
   repository: file://charts/otel
   version: 0.1.0
-digest: sha256:d8af69c3c9973484b53d2bda085cf4966ddf7186f5d5ff0ddc81c704fbee89bc
-generated: "2024-10-20T01:26:33.172861-04:00"
+- name: pty-proxy
+  repository: file://charts/pty-proxy
+  version: 0.1.7
+digest: sha256:ee36f31f10040547ecb5a25a32c45a5bc25f70bfca315cc693e05c3efe4253d9
+generated: "2024-11-14T14:15:19.282865-05:00"

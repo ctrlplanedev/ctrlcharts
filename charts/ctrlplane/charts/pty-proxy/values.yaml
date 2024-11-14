@@ -1,10 +1,8 @@
 nameOverride: ""
 fullnameOverride: ""
 
-replica: 2
-
 image:
-  repository: ctrlplane/event-worker
+  repository: ctrlplane/pty-proxy
   tag: latest
   pullPolicy: Always
 
@@ -20,6 +18,11 @@ hpa:
   annotations: {}
   minReplicas: 2
   maxReplicas: 5
+
+service:
+  type: ClusterIP
+  annotations: {}
+  labels: {}
 
 tolerations: []
 pod: {}

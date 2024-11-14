@@ -28,4 +28,11 @@ spec:
                 name: {{ .Release.Name }}-webservice
                 port: 
                   number: 3000
+          - pathType: Prefix
+            path: /api/v1/resource/proxy
+            backend:
+              service:
+                name: {{ .Release.Name }}-pty-proxy
+                port:
+                  number: 4000
 {{- end }}

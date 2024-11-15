@@ -29,7 +29,7 @@ spec:
                 port: 
                   number: 3000
           - pathType: Prefix
-            path: /api/v1/resource/proxy
+            path: /api/v1/resources/proxy
             backend:
               service:
                 name: {{ .Release.Name }}-pty-proxy

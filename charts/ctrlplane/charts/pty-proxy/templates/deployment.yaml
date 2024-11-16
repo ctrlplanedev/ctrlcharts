@@ -46,6 +46,14 @@ spec:
             httpGet:
               path: /api/v1/resources/proxy/health
               port: http
+          livenessProbe:
+            httpGet:
+              path: /api/v1/resources/proxy/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /api/v1/resources/proxy/health
+              port: http
           env:
             - name: REDIS_URL
               valueFrom:

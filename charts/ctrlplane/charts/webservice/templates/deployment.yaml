@@ -115,6 +115,10 @@ spec:
             # - name: OTEL_EXPORTER_OTLP_ENDPOINT
               # value: http://{{ $.Release.Name }}-otel:4318
             {{- end }}
+            {{- with (include "ctrlplane.azureApp" . | fromYaml) }}
+            - name: AZURE_APP_CLIENT_ID
+              value: {{ .clientId | quote }}
+            {{- end }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
           livenessProbe:

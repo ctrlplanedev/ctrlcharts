@@ -39,6 +39,9 @@ global:
         clientSecret: ""
         privateKey: ""
         webhookSecret: ""
+    azure:
+      appClientId: ""
+      appClientSecret: ""
 
 webservice:
   install: true

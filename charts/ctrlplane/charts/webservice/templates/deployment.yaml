@@ -70,6 +70,17 @@ spec:
               value: {{ .Values.global.authProviders.oidc.clientSecret }}
             {{- end }}
 
+            {{- if eq .Values.global.authProviders.credentials.enabled "true" }}
+            - name: AUTH_CREDENTIALS_ENABLED
+              value: "true"
+            {{- else if eq .Values.global.authProviders.credentials.enabled "false" }}
+            - name: AUTH_CREDENTIALS_ENABLED
+              value: "false"
+            {{- else }}
+            - name: AUTH_CREDENTIALS_ENABLED
+              value: "auto"
+            {{- end }}
+
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:

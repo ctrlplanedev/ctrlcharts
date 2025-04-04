@@ -12,6 +12,8 @@ global:
       issuer: ""
       clientId: ""
       clientSecret: ""
+    credentials:
+      enabled: "auto"
 
   common:
     labels: {}

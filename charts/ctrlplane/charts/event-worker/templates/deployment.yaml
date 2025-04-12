@@ -48,6 +48,7 @@ spec:
               port: health
             initialDelaySeconds: 15
             periodSeconds: 20
+            failureThreshold: 20
           readinessProbe:
             httpGet:
               path: /healthz

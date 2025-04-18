@@ -103,5 +103,7 @@ spec:
             {{- end }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
+            - name: ENABLE_NEW_POLICY_ENGINE
+              value: {{ .Values.global.enableNewPolicyEngine | quote }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

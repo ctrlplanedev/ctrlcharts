@@ -123,6 +123,8 @@ spec:
                   name: {{ .secretRef }}
                   key: GITHUB_WEBHOOK_SECRET
                   optional: true
+            - name: ENABLE_NEW_POLICY_ENGINE
+              value: {{ .Values.global.enableNewPolicyEngine | quote }}
             # - name: OTEL_EXPORTER_OTLP_ENDPOINT
               # value: http://{{ $.Release.Name }}-otel:4318
             {{- end }}

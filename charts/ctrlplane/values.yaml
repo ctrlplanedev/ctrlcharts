@@ -3,6 +3,7 @@ global:
 
   extraEnvFrom: {}
   extraEnv: {}
+  enableNewPolicyEngine: false
 
   authProviders:
     google:

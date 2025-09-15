@@ -32,6 +32,8 @@ global:
     port: "5432"
     database: "ctrlplane"
 
+  kafkaBrokers: localhost:9092
+
   integrations:
     github:
       url: "https://github.com"
@@ -62,6 +64,9 @@ ingress:
   annotations: {}
 
 event-worker:
+  install: true
+
+event-queue:
   install: true
 
 otel:

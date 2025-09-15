@@ -2,7 +2,7 @@ apiVersion: v2
 name: ctrlplane
 description: Ctrlplane Helm chart for Kubernetes
 type: application
-version: 0.3.14
+version: 0.4.0
 appVersion: "1.16.0"
 
 maintainers:
@@ -27,6 +27,10 @@ dependencies:
     condition: event-worker.install
     version: "*.*.*"
     repository: "file://charts/event-worker"
+  - name: event-queue
+    condition: event-queue.install
+    version: "*.*.*"
+    repository: "file://charts/event-queue"
   - name: otel
     condition: otel.install
     version: "*.*.*"

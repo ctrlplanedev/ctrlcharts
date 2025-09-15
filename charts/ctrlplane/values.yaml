@@ -66,6 +66,9 @@ ingress:
 event-worker:
   install: true
 
+event-queue:
+  install: true
+
 otel:
   install: true
 

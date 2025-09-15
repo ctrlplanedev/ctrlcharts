@@ -32,6 +32,8 @@ global:
     port: "5432"
     database: "ctrlplane"
 
+  kafkaBrokers: localhost:9092
+
   integrations:
     github:
       url: "https://github.com"

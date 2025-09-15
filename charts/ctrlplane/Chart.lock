@@ -11,11 +11,14 @@ dependencies:
 - name: event-worker
   repository: file://charts/event-worker
   version: 0.1.7
+- name: event-queue
+  repository: file://charts/event-queue
+  version: 0.1.7
 - name: otel
   repository: file://charts/otel
   version: 0.1.0
 - name: pty-proxy
   repository: file://charts/pty-proxy
   version: 0.1.7
-digest: sha256:ee36f31f10040547ecb5a25a32c45a5bc25f70bfca315cc693e05c3efe4253d9
-generated: "2024-11-14T14:15:19.282865-05:00"
+digest: sha256:696d4172a4ce1e477df94406da1ee21a05680dc5734eeeec89ee59fc1810f376
+generated: "2025-09-15T17:19:06.843928-04:00"

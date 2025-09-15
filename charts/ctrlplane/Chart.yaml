@@ -27,6 +27,10 @@ dependencies:
     condition: event-worker.install
     version: "*.*.*"
     repository: "file://charts/event-worker"
+  - name: event-queue
+    condition: event-queue.install
+    version: "*.*.*"
+    repository: "file://charts/event-queue"
   - name: otel
     condition: otel.install
     version: "*.*.*"

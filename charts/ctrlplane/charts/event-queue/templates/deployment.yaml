@@ -40,7 +40,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - name: health
-              containerPort: 3123
+              containerPort: 3124
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -58,6 +58,11 @@ spec:
           env:
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafkaBrokers | quote }}
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-connections
+                  key: REDIS_URL
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:

@@ -25,6 +25,8 @@ spec:
               command: ["node"]
               args: ["index.js", "-r", "-j policy-checker"]
               env:
+                - name: KAFKA_BROKERS
+                  value: {{ .Values.global.kafkaBrokers | quote }}
                 - name: REDIS_URL
                   valueFrom:
                     secretKeyRef:

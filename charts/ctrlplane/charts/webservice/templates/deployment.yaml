@@ -81,6 +81,8 @@ spec:
               value: "auto"
             {{- end }}
 
+            - name: KAFKA_BROKERS
+              value: {{ .Values.global.kafkaBrokers | quote }}
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:

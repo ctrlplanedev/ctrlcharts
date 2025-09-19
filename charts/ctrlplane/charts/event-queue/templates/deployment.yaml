@@ -55,6 +55,7 @@ spec:
               port: health
             initialDelaySeconds: 5
             periodSeconds: 10
+            failureThreshold: 20
           env:
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafkaBrokers | quote }}

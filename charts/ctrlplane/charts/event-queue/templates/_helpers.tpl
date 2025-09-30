@@ -60,3 +60,36 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{ define "pgbouncer.ini" }}
+
+{{/* [databases] section */}}
+{{- if $.Values.databases }}
+  {{ printf "[databases]" }}
+  {{- range $key, $value := .Values.databases }}
+    {{ $key }} ={{ range $k, $v := $value }} {{ $k }}={{ $v }}{{ end }}
+  {{- end }}
+{{- end }}
+
+{{/* [pgbouncer] section */}}
+{{- if $.Values.pgbouncer }}
+  {{ printf "[pgbouncer]" }}
+  {{- range $k, $v := $.Values.pgbouncer }}
+    {{ $k }} = {{ $v }}
+  {{- end }}
+{{- end }}
+
+{{/* [users] section */}}
+{{- if $.Values.users }}
+  {{ printf "[users]" }}
+  {{- range $k, $v := $.Values.users }}
+    {{ $k }} = {{ $v }}
+  {{- end }}
+{{- end }}
+
+{{/* include is a special configuration within [pgbouncer] section */}}
+{{- if $.Values.include }}
+  {{ printf "%s %s" "%include" $.Values.include }}
+{{- end }}
+
+{{ end }}

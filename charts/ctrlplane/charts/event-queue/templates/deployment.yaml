@@ -102,3 +102,16 @@ spec:
               value: {{ .Values.global.enableNewPolicyEngine | quote }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        - name: pgbouncer
+          image: "{{ .Values.pgbouncer.image.repository }}:{{ .Values.pgbouncer.image.tag }}"
+          imagePullPolicy: "{{ .Values.pgbouncer.image.pullPolicy }}"
+          ports:
+            - name: pgbouncer
+              containerPort: {{ .Values.pgbouncer.internalPort }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/pgbouncer
+              readOnly: true
+          resources:
+            {{- toYaml .Values.pgbouncer.resources | nindent 12 }}
+

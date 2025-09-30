@@ -8,6 +8,24 @@ image:
   tag: latest
   pullPolicy: Always
 
+pgbouncer:
+  image:
+    repository: ctrlplane/pgbouncer
+    tag: latest
+    pullPolicy: Always
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  internalPort: 6379
+  config:
+    listen_addr: 0.0.0.0
+    listen_port: 6432
+    unix_socket_dir: ""
+
 extraEnv: {}
 extraEnvFrom: {}
 

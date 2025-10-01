@@ -1,10 +1,10 @@
 {{- $imageCfg := dict "global" $.Values.global.image "local" $.Values.image -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "event-queue.fullname" . }}
+  name: {{ .Release.Name }}-engine
   labels:
-    {{- include "event-queue.labels" . | nindent 4 }}
+    {{- include "workspace-engine.labels" . | nindent 4 }}
     {{- if .Values.deployment.labels -}}
     {{-   toYaml .Values.deployment.labels | nindent 4 }}
     {{- end }}
@@ -13,21 +13,22 @@ metadata:
     {{-   toYaml .Values.deployment.annotations | nindent 4 }}
     {{- end }}
 spec:
+  serviceName: {{ .Release.Name }}-engine
   replicas: {{ .Values.replica }}
   selector:
     matchLabels:
       {{- include "ctrlplane.selectorLabels" $ | nindent 6 }}
-      {{- include "event-queue.labels" . | nindent 6 }}
+      {{- include "workspace-engine.labels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "event-queue.labels" . | nindent 8 }}
+        {{- include "workspace-engine.labels" . | nindent 8 }}
       annotations:
         {{- if .Values.pod.annotations -}}
         {{-   toYaml .Values.pod.annotations | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ include "event-queue.serviceAccountName" . }}
+      serviceAccountName: {{ include "workspace-engine.serviceAccountName" . }}
       {{- if .tolerations }}
       tolerations:
         {{- toYaml .tolerations | nindent 8 }}
@@ -36,31 +37,23 @@ spec:
       {{- include "ctrlplane.priorityClassName" . | nindent 6 }}
       {{- include "ctrlplane.podSecurityContext" .Values.pod.securityContext | nindent 6 }}
       containers:
-        - name: event-queue
+        - name: workspace-engine
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            - name: health
-              containerPort: 3124
+            - name: http2
+              containerPort: 8081
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: health
-            initialDelaySeconds: 15
-            periodSeconds: 60
-            timeoutSeconds: 10
-            failureThreshold: 10
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: health
-            initialDelaySeconds: 15
-            periodSeconds: 60
-            timeoutSeconds: 10
-            failureThreshold: 10
           env:
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafkaBrokers | quote }}
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: KAFKA_PARTITION_ID
+              value: "$(echo $POD_NAME | sed 's/.*-//')"
+            - name: GRPC_PORT
+              value: {{ .Values.grpc.port | quote }}
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:
@@ -96,33 +89,9 @@ spec:
             - name: GITHUB_BOT_NAME
               value: {{ .name }}
             {{- end }}
-            - name: WORKSPACE_ENGINE_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: WORKSPACE_ENGINE_STATEFUL_SET_NAME
-              value: {{ .Chart.Name }}-engine
-            - name: WORKSPACE_ENGINE_HEADLESS_SERVICE
-              value: {{ .Release.Name }}-engine
-            - name: WORKSPACE_ENGINE_PORT
-              value: "8081"
-            
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
             - name: ENABLE_NEW_POLICY_ENGINE
               value: {{ .Values.global.enableNewPolicyEngine | quote }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        - name: pgbouncer
-          image: "{{ .Values.pgbouncer.image.repository }}:{{ .Values.pgbouncer.image.tag }}"
-          imagePullPolicy: "{{ .Values.pgbouncer.image.pullPolicy }}"
-          ports:
-            - name: pgbouncer
-              containerPort: {{ .Values.pgbouncer.internalPort }}
-          volumeMounts:
-            - name: config
-              mountPath: /etc/pgbouncer
-              readOnly: true
-          resources:
-            {{- toYaml .Values.pgbouncer.resources | nindent 12 }}
-

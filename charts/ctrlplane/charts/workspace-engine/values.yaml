@@ -1,0 +1,33 @@
+nameOverride: ""
+fullnameOverride: ""
+
+replica: 1
+
+statefulset:
+  labels: {}
+  annotations: {}
+
+image:
+  repository: ctrlplane/workspace-engine
+  tag: latest
+  pullPolicy: Always
+
+extraEnv: {}
+extraEnvFrom: {}
+
+tolerations: []
+pod: {}
+
+serviceAccount:
+  create: false
+  name: ""
+  labels: {}
+  annotations: {}
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: 1Gi
+  limits:
+    cpu: 4000m
+    memory: 4Gi

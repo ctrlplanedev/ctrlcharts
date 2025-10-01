@@ -20,5 +20,8 @@ dependencies:
 - name: pty-proxy
   repository: file://charts/pty-proxy
   version: 0.1.7
-digest: sha256:696d4172a4ce1e477df94406da1ee21a05680dc5734eeeec89ee59fc1810f376
-generated: "2025-09-15T17:19:06.843928-04:00"
+- name: workspace-engine
+  repository: file://charts/workspace-engine
+  version: 0.1.0
+digest: sha256:d7a28c69532ba045f866918f5b769f57bb791f6d5eb1209c3e3dbb751c7207b3
+generated: "2025-10-01T19:24:20.209087-04:00"

@@ -12,6 +12,27 @@ image:
   tag: latest
   pullPolicy: Always
 
+service:
+  labels: {}
+  annotations: {}
+  type: ClusterIP
+  createIndividualServices: false # Set to true to create individual services for each pod
+  nodePorts:
+    basePort: 30080 # Base port for NodePort services (only used if type is NodePort and createIndividualServices is true)
+
+ingress:
+  enabled: false
+  className: ""
+  labels: {}
+  annotations: {}
+  podHostPrefix: "engine" # Creates hostnames like engine-0.example.com, engine-1.example.com
+  hosts:
+    - host: example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
 extraEnv: {}
 extraEnvFrom: {}
 

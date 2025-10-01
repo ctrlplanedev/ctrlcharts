@@ -1,0 +1,59 @@
+{{/* Headless service for StatefulSet */}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-engine
+  labels:
+    {{- include "workspace-engine.labels" . | nindent 4 }}
+    {{- if .Values.service.labels -}}
+    {{-   toYaml .Values.service.labels | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- if .Values.service.annotations -}}
+    {{-   toYaml .Values.service.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  clusterIP: None  # Headless service for StatefulSet
+  selector:
+    {{- include "ctrlplane.selectorLabels" $ | nindent 4 }}
+    {{- include "workspace-engine.labels" . | nindent 4 }}
+  ports:
+    - name: http2
+      port: 8081
+      targetPort: http2
+      protocol: TCP
+---
+{{/* Individual services for each pod (optional) */}}
+{{- if .Values.service.createIndividualServices }}
+{{- range $i := until (.Values.replica | int) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}-engine-{{ $i }}
+  labels:
+    {{- include "workspace-engine.labels" $ | nindent 4 }}
+    {{- if $.Values.service.labels -}}
+    {{-   toYaml $.Values.service.labels | nindent 4 }}
+    {{- end }}
+    pod-index: "{{ $i }}"
+  annotations:
+    {{- if $.Values.service.annotations -}}
+    {{-   toYaml $.Values.service.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  type: {{ $.Values.service.type | default "ClusterIP" }}
+  selector:
+    {{- include "ctrlplane.selectorLabels" $ | nindent 4 }}
+    {{- include "workspace-engine.labels" $ | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ $.Release.Name }}-engine-{{ $i }}
+  ports:
+    - name: http2
+      port: 8081
+      targetPort: http2
+      protocol: TCP
+      {{- if and (eq ($.Values.service.type | default "ClusterIP") "NodePort") $.Values.service.nodePorts }}
+      nodePort: {{ add ($.Values.service.nodePorts.basePort | default 30000) $i }}
+      {{- end }}
+---
+{{- end }}
+{{- end }}

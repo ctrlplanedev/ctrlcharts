@@ -46,18 +46,18 @@ spec:
             httpGet:
               path: /healthz
               port: health
-            initialDelaySeconds: 15
-            periodSeconds: 60
-            timeoutSeconds: 10
-            failureThreshold: 10
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /healthz
               port: health
-            initialDelaySeconds: 15
-            periodSeconds: 60
-            timeoutSeconds: 10
-            failureThreshold: 10
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
           env:
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafkaBrokers | quote }}

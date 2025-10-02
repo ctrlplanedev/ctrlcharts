@@ -38,23 +38,23 @@ spec:
       containers:
         - name: event-worker
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          ports:
-            - name: health
-              containerPort: 3123
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: health
-            initialDelaySeconds: 15
-            periodSeconds: 20
-            failureThreshold: 20
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: health
-            initialDelaySeconds: 5
-            periodSeconds: 10
+          # ports:
+          #   - name: health
+          #     containerPort: 3123
+          #     protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: health
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 20
+          #   failureThreshold: 20
+          # readinessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: health
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
           env:
             - name: REDIS_URL
               valueFrom:

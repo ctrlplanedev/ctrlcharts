@@ -16,9 +16,6 @@ service:
   labels: {}
   annotations: {}
   type: ClusterIP
-  createIndividualServices: false # Set to true to create individual services for each pod
-  nodePorts:
-    basePort: 30080 # Base port for NodePort services (only used if type is NodePort and createIndividualServices is true)
 
 ingress:
   enabled: false

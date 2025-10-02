@@ -23,8 +23,6 @@ spec:
       targetPort: http2
       protocol: TCP
 ---
-{{/* Individual services for each pod (optional) */}}
-{{- if .Values.service.createIndividualServices }}
 {{- range $i := until (.Values.replica | int) }}
 apiVersion: v1
 kind: Service
@@ -51,9 +49,5 @@ spec:
       port: 8081
       targetPort: http2
       protocol: TCP
-      {{- if and (eq ($.Values.service.type | default "ClusterIP") "NodePort") $.Values.service.nodePorts }}
-      nodePort: {{ add ($.Values.service.nodePorts.basePort | default 30000) $i }}
-      {{- end }}
 ---
-{{- end }}
 {{- end }}

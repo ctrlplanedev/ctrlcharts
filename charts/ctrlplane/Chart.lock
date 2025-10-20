@@ -8,9 +8,6 @@ dependencies:
 - name: migrations
   repository: file://charts/migrations
   version: 0.1.6
-- name: event-worker
-  repository: file://charts/event-worker
-  version: 0.1.7
 - name: event-queue
   repository: file://charts/event-queue
   version: 0.1.7
@@ -23,5 +20,5 @@ dependencies:
 - name: workspace-engine
   repository: file://charts/workspace-engine
   version: 0.1.0
-digest: sha256:d7a28c69532ba045f866918f5b769f57bb791f6d5eb1209c3e3dbb751c7207b3
-generated: "2025-10-01T19:24:20.209087-04:00"
+digest: sha256:0e91f273ef3731567ede504f5dee53983823962a69f54d2e13047e221253f98b
+generated: "2025-10-20T11:22:56.849671-07:00"

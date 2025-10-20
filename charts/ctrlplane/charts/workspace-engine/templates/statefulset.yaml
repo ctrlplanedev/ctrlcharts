@@ -52,11 +52,6 @@ spec:
                   fieldPath: metadata.name
             - name: KAFKA_PARTITION_ID
               value: "$(echo $POD_NAME | sed 's/.*-//')"
-            - name: REDIS_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}-connections
-                  key: REDIS_URL
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:

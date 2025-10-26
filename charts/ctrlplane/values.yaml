@@ -66,3 +66,9 @@ otel:
 
 pty-proxy:
   install: true
+
+api:
+  install: true
+
+web:
+  install: true

@@ -20,5 +20,11 @@ dependencies:
 - name: workspace-engine
   repository: file://charts/workspace-engine
   version: 0.1.0
-digest: sha256:0e91f273ef3731567ede504f5dee53983823962a69f54d2e13047e221253f98b
-generated: "2025-10-20T11:22:56.849671-07:00"
+- name: api
+  repository: file://charts/api
+  version: 1.0.0
+- name: web
+  repository: file://charts/web
+  version: 1.0.0
+digest: sha256:756516a6f12884144d13d94d9316e767188d95aedb9009634e80f16e46b1bbd7
+generated: "2025-10-26T13:32:54.817996-04:00"

@@ -1,0 +1,146 @@
+{{- $imageCfg := dict "global" $.Values.global.image "local" $.Values.image -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api.fullname" . }}
+  labels:
+    {{- include "api.labels" . | nindent 4 }}
+    {{- if .Values.deployment.labels -}}
+    {{-   toYaml .Values.deployment.labels | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- if .Values.deployment.annotations -}}
+    {{-   toYaml .Values.deployment.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  replicas: {{ .Values.replica }}
+  selector:
+    matchLabels:
+      {{- include "api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "api.labels" . | nindent 8 }}
+      annotations:
+        {{- if .Values.pod.annotations -}}
+        {{-   toYaml .Values.pod.annotations | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "api.serviceAccountName" . }}
+      {{- if .tolerations }}
+      tolerations:
+        {{- toYaml .tolerations | nindent 8 }}
+      {{- end }}
+      {{- include "ctrlplane.nodeSelector" . | nindent 6 }}
+      {{- include "ctrlplane.priorityClassName" . | nindent 6 }}
+      {{- include "ctrlplane.podSecurityContext" .Values.pod.securityContext | nindent 6 }}
+      containers:
+        - name: api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - name: api
+              containerPort: 8081
+              protocol: TCP
+          env:
+            - name: BASE_URL
+              value: {{ .Values.global.fqdn }}
+            - name: AUTH_URL
+              value: {{ .Values.global.fqdn }}
+
+            - name: VARIABLES_AES_256_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-encryption-key
+                  key: AES_256_KEY
+
+            {{- if ne .Values.global.authProviders.google.clientId "" }}
+            - name: AUTH_GOOGLE_CLIENT_ID
+              value: {{ .Values.global.authProviders.google.clientId }}
+            - name: AUTH_GOOGLE_CLIENT_SECRET
+              value: {{ .Values.global.authProviders.google.clientSecret }}
+            {{- end }}
+
+            {{- if ne .Values.global.authProviders.oidc.clientId "" }}
+            - name: AUTH_OIDC_ISSUER
+              value: {{ .Values.global.authProviders.oidc.issuer }}
+            - name: AUTH_OIDC_CLIENT_ID
+              value: {{ .Values.global.authProviders.oidc.clientId }}
+            - name: AUTH_OIDC_CLIENT_SECRET
+              value: {{ .Values.global.authProviders.oidc.clientSecret }}
+            {{- end }}
+
+            {{- if eq .Values.global.authProviders.credentials.enabled "true" }}
+            - name: AUTH_CREDENTIALS_ENABLED
+              value: "true"
+            {{- else if eq .Values.global.authProviders.credentials.enabled "false" }}
+            - name: AUTH_CREDENTIALS_ENABLED
+              value: "false"
+            {{- else }}
+            - name: AUTH_CREDENTIALS_ENABLED
+              value: "auto"
+            {{- end }}
+
+            - name: KAFKA_BROKERS
+              value: {{ .Values.global.kafkaBrokers | quote }}
+
+            - name: POSTGRES_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-connections
+                  key: POSTGRES_URL
+
+            - name: AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}
+                  key: AUTH_SECRET
+            - name: GITHUB_URL
+              value: {{ include "ctrlplane.githubUrl" . }}
+            {{- with (include "ctrlplane.githubBot" . | fromYaml) }}
+            - name: GITHUB_BOT_NAME
+              value: {{ .name | quote }}
+            - name: GITHUB_BOT_APP_ID
+              value: {{ .appId | quote }}
+            - name: GITHUB_BOT_CLIENT_ID
+              value: {{ .clientId | quote }}
+            - name: GITHUB_BOT_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretRef }}
+                  key: GITHUB_BOT_CLIENT_SECRET
+                  optional: true
+            - name: GITHUB_BOT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretRef }}
+                  key: GITHUB_BOT_PRIVATE_KEY
+                  optional: true
+            - name: GITHUB_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretRef }}
+                  key: GITHUB_WEBHOOK_SECRET
+                  optional: true
+            # - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              # value: http://{{ $.Release.Name }}-otel:4318
+            {{- end }}
+            {{- with (include "ctrlplane.azureApp" . | fromYaml) }}
+            - name: AZURE_APP_CLIENT_ID
+              value: {{ .clientId | quote }}
+            {{- end }}
+            {{- include "ctrlplane.extraEnv" . | nindent 12 }}
+            {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: api
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: api
+          startupProbe:
+            httpGet:
+              path: /api/healthz
+              port: api
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

@@ -3,6 +3,61 @@ entries:
   ctrlplane:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-10-27T20:30:35.196939385Z"
+    dependencies:
+    - condition: webservice.install
+      name: webservice
+      repository: file://charts/webservice
+      version: '*.*.*'
+    - condition: jobs.install
+      name: jobs
+      repository: file://charts/jobs
+      version: '*.*.*'
+    - condition: migrations.install
+      name: migrations
+      repository: file://charts/migrations
+      version: '*.*.*'
+    - condition: event-queue.install
+      name: event-queue
+      repository: file://charts/event-queue
+      version: '*.*.*'
+    - condition: otel.install
+      name: otel
+      repository: file://charts/otel
+      version: '*.*.*'
+    - condition: pty-proxy.install
+      name: pty-proxy
+      repository: file://charts/pty-proxy
+      version: '*.*.*'
+    - condition: workspace-engine.install
+      name: workspace-engine
+      repository: file://charts/workspace-engine
+      version: '*.*.*'
+    - condition: api.install
+      name: api
+      repository: file://charts/api
+      version: '*.*.*'
+    - condition: web.install
+      name: web
+      repository: file://charts/web
+      version: '*.*.*'
+    - condition: workspace-engine-router.install
+      name: workspace-engine-router
+      repository: file://charts/workspace-engine-router
+      version: '*.*.*'
+    description: Ctrlplane Helm chart for Kubernetes
+    digest: 771ad88c03bcc6ca2b7638c9c19855ef4783f3a2f718c984a240bfe6f4a4bd5f
+    maintainers:
+    - email: support@ctrlplane.com
+      name: ctrlplane
+      url: https://ctrlplane.dev
+    name: ctrlplane
+    type: application
+    urls:
+    - ctrlplane-0.7.1.tgz
+    version: 0.7.1
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-10-27T00:57:44.766725619Z"
     dependencies:
     - condition: webservice.install
@@ -2594,4 +2649,4 @@ entries:
     urls:
     - ctrlplane-0.1.6.tgz
     version: 0.1.6
-generated: "2025-10-27T00:57:44.766985692Z"
+generated: "2025-10-27T20:30:35.197339715Z"

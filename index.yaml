@@ -2,6 +2,61 @@ apiVersion: v1
 entries:
   ctrlplane:
   - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-10-27T00:57:44.766725619Z"
+    dependencies:
+    - condition: webservice.install
+      name: webservice
+      repository: file://charts/webservice
+      version: '*.*.*'
+    - condition: jobs.install
+      name: jobs
+      repository: file://charts/jobs
+      version: '*.*.*'
+    - condition: migrations.install
+      name: migrations
+      repository: file://charts/migrations
+      version: '*.*.*'
+    - condition: event-queue.install
+      name: event-queue
+      repository: file://charts/event-queue
+      version: '*.*.*'
+    - condition: otel.install
+      name: otel
+      repository: file://charts/otel
+      version: '*.*.*'
+    - condition: pty-proxy.install
+      name: pty-proxy
+      repository: file://charts/pty-proxy
+      version: '*.*.*'
+    - condition: workspace-engine.install
+      name: workspace-engine
+      repository: file://charts/workspace-engine
+      version: '*.*.*'
+    - condition: api.install
+      name: api
+      repository: file://charts/api
+      version: '*.*.*'
+    - condition: web.install
+      name: web
+      repository: file://charts/web
+      version: '*.*.*'
+    - condition: workspace-engine-router.install
+      name: workspace-engine-router
+      repository: file://charts/workspace-engine-router
+      version: '*.*.*'
+    description: Ctrlplane Helm chart for Kubernetes
+    digest: c25061f90f829a8b98062fabc55db229d707fa8492bd71af24f3f0d10ade5c74
+    maintainers:
+    - email: support@ctrlplane.com
+      name: ctrlplane
+      url: https://ctrlplane.dev
+    name: ctrlplane
+    type: application
+    urls:
+    - ctrlplane-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v2
     appVersion: 1.16.0
     created: "2025-10-26T21:00:38.465550443Z"
     dependencies:
@@ -2539,4 +2594,4 @@ entries:
     urls:
     - ctrlplane-0.1.6.tgz
     version: 0.1.6
-generated: "2025-10-26T21:00:38.465804939Z"
+generated: "2025-10-27T00:57:44.766985692Z"

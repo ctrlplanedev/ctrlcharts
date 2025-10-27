@@ -46,6 +46,8 @@ spec:
               value: {{ .Values.global.fqdn }}
             - name: AUTH_URL
               value: {{ .Values.global.fqdn }}
+            - name: WORKSPACE_ENGINE_ROUTER_URL
+              value: http://{{ .Release.Name }}-workspace-engine-router.{{ .Release.Namespace }}.svc.cluster.local:9090
 
             - name: VARIABLES_AES_256_KEY
               valueFrom:

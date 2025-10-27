@@ -26,5 +26,8 @@ dependencies:
 - name: web
   repository: file://charts/web
   version: 1.0.0
-digest: sha256:756516a6f12884144d13d94d9316e767188d95aedb9009634e80f16e46b1bbd7
-generated: "2025-10-26T13:32:54.817996-04:00"
+- name: workspace-engine-router
+  repository: file://charts/workspace-engine-router
+  version: 1.0.0
+digest: sha256:7d563f379af55b64aacd8527775d364660e7d4a8f82c42befc9b41ebc614372a
+generated: "2025-10-26T20:34:22.098605-04:00"

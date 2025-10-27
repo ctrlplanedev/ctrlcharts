@@ -72,3 +72,8 @@ api:
 
 web:
   install: true
+
+workspace-engine-router:
+  install: true
+  image:
+    tag: 95d4078

@@ -46,12 +46,21 @@ spec:
           env:
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafkaBrokers | quote }}
+
             - name: POD_NAME
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: KAFKA_PARTITION_ID
-              value: "$(echo $POD_NAME | sed 's/.*-//')"
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+
+            - name: REGISTER_ADDRESS
+              value: "http://$(POD_NAME).{{ include "workspace-engine.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:8081"
+            - name: ROUTER_ADDRESS
+              value: "http://{{ .Release.Name }}-workspace-engine-router.{{ .Release.Namespace }}.svc.cluster.local:9091"
+
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:

@@ -57,8 +57,8 @@ spec:
                   fieldPath: metadata.namespace
 
             - name: REGISTER_ADDRESS
-              value: "http://$(POD_NAME).{{ include "workspace-engine.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:8081"
-            - name: ROUTER_ADDRESS
+              value: "http://$(POD_NAME).{{ .Release.Name }}-engine.{{ .Release.Namespace }}.svc.cluster.local:8081"
+            - name: ROUTER_URL
               value: "http://{{ .Release.Name }}-workspace-engine-router.{{ .Release.Namespace }}.svc.cluster.local:9091"
 
             - name: POSTGRES_URL

@@ -1,18 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: {{ include "otel.fullname" . }}
   labels:
     {{- include "otel.labels" . | nindent 4 }}
-    {{- if .Values.deployment.labels -}}
-    {{-   toYaml .Values.deployment.labels | nindent 4 }}
+    {{- if .Values.daemonset.labels -}}
+    {{-   toYaml .Values.daemonset.labels | nindent 4 }}
     {{- end }}
   annotations:
-    {{- if .Values.deployment.annotations -}}
-    {{-   toYaml .Values.deployment.annotations | nindent 4 }}
+    {{- if .Values.daemonset.annotations -}}
+    {{-   toYaml .Values.daemonset.annotations | nindent 4 }}
     {{- end }}
 spec:
-  replicas: 1
   selector:
     matchLabels:
       {{- include "ctrlplane.selectorLabels" $ | nindent 6 }}

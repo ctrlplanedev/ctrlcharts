@@ -8,17 +8,17 @@ dependencies:
 - name: pty-proxy
   repository: file://charts/pty-proxy
   version: 0.1.7
-- name: workspace-engine
-  repository: file://charts/workspace-engine
-  version: 0.1.0
 - name: api
   repository: file://charts/api
   version: 1.0.0
 - name: web
   repository: file://charts/web
   version: 1.0.0
+- name: workspace-engine
+  repository: file://charts/workspace-engine
+  version: 0.1.0
 - name: workspace-engine-router
   repository: file://charts/workspace-engine-router
   version: 1.0.0
-digest: sha256:976726aea51af13a29f6ef62bf16138ec7799d2ba809866428f5759ee821de8a
-generated: "2026-02-05T14:46:35.692209-05:00"
+digest: sha256:318fef34d645e298ca6489312177c147b1fca0d5d45ee26b96d5c50e3aaeeede
+generated: "2026-02-05T17:22:11.546838-05:00"

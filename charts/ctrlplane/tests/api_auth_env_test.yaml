@@ -1,0 +1,87 @@
+suite: auth providers
+templates:
+  - charts/api/templates/deployment.yaml
+  - templates/secrets.yaml
+release:
+  name: ctrlplane
+set:
+  global:
+    authProviders:
+      oidc:
+        issuer: ""
+        clientId: ""
+        clientSecret: ""
+tests:
+  - it: sets google and okta env vars on api deployment
+    template: charts/api/templates/deployment.yaml
+    set:
+      global:
+        authProviders:
+          google:
+            clientId: google-client-id
+            clientSecret: google-client-secret
+          okta:
+            issuer: https://example.okta.com/oauth2/default
+            clientId: okta-client-id
+            clientSecret: okta-client-secret
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_OKTA_ISSUER
+            value: https://example.okta.com/oauth2/default
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_GOOGLE_CLIENT_ID
+            value: google-client-id
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_GOOGLE_CLIENT_SECRET
+            value: google-client-secret
+          any: true
+  - it: uses valueFrom for okta secrets
+    template: charts/api/templates/deployment.yaml
+    set:
+      global:
+        authProviders:
+          okta:
+            issuer: https://example.okta.com/oauth2/default
+            clientId:
+              valueFrom:
+                secretKeyRef:
+                  name: okta-oauth-secret
+                  key: client-id
+            clientSecret:
+              valueFrom:
+                secretKeyRef:
+                  name: okta-oauth-secret
+                  key: client-secret
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_OKTA_ISSUER
+            value: https://example.okta.com/oauth2/default
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_OKTA_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                key: client-id
+                name: okta-oauth-secret
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_OKTA_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                key: client-secret
+                name: okta-oauth-secret
+          any: true

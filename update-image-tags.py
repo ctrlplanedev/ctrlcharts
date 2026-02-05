@@ -4,7 +4,6 @@ Script to fetch the latest Docker image tags from Docker Hub and update local-va
 """
 
 import argparse
-import json
 import re
 import sys
 from pathlib import Path

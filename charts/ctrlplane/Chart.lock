@@ -1,16 +1,7 @@
 dependencies:
-- name: webservice
-  repository: file://charts/webservice
-  version: 0.1.4
-- name: jobs
-  repository: file://charts/jobs
-  version: 0.1.5
 - name: migrations
   repository: file://charts/migrations
   version: 0.1.6
-- name: event-queue
-  repository: file://charts/event-queue
-  version: 0.1.7
 - name: otel
   repository: file://charts/otel
   version: 0.1.0
@@ -29,5 +20,5 @@ dependencies:
 - name: workspace-engine-router
   repository: file://charts/workspace-engine-router
   version: 1.0.0
-digest: sha256:7d563f379af55b64aacd8527775d364660e7d4a8f82c42befc9b41ebc614372a
-generated: "2025-10-26T20:34:22.098605-04:00"
+digest: sha256:976726aea51af13a29f6ef62bf16138ec7799d2ba809866428f5759ee821de8a
+generated: "2026-02-05T14:46:35.692209-05:00"

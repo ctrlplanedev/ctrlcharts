@@ -48,11 +48,7 @@ spec:
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafkaBrokers | quote }}
 
-            - name: POSTGRES_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}-connections
-                  key: POSTGRES_URL
+            {{- include "ctrlplane.postgresqlEnvVars" . | nindent 12 }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
           resources:

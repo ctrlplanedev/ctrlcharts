@@ -11,22 +11,10 @@ maintainers:
     url: https://ctrlplane.dev
 
 dependencies:
-  - name: webservice
-    version: "*.*.*"
-    repository: file://charts/webservice
-    condition: webservice.install
-  - name: jobs
-    version: "*.*.*"
-    repository: file://charts/jobs
-    condition: jobs.install
   - name: migrations
     version: "*.*.*"
     repository: file://charts/migrations
     condition: migrations.install
-  - name: event-queue
-    condition: event-queue.install
-    version: "*.*.*"
-    repository: "file://charts/event-queue"
   - name: otel
     condition: otel.install
     version: "*.*.*"
@@ -35,10 +23,6 @@ dependencies:
     condition: pty-proxy.install
     version: "*.*.*"
     repository: "file://charts/pty-proxy"
-  - name: workspace-engine
-    condition: workspace-engine.install
-    version: "*.*.*"
-    repository: "file://charts/workspace-engine"
   - name: api
     condition: api.install
     version: "*.*.*"
@@ -47,6 +31,10 @@ dependencies:
     condition: web.install
     version: "*.*.*"
     repository: "file://charts/web"
+  - name: workspace-engine
+    condition: workspace-engine.install
+    version: "*.*.*"
+    repository: "file://charts/workspace-engine"
   - name: workspace-engine-router
     condition: workspace-engine-router.install
     version: "*.*.*"

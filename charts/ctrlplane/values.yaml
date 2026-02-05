@@ -8,11 +8,36 @@ global:
   authProviders:
     google:
       clientId: ""
+      # clientId:
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: "google-oauth-secret"
+      #       key: "client-id"
       clientSecret: ""
-    oidc:
+      # clientSecret:
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: "google-oauth-secret"
+      #       key: "client-secret"
+    okta:
       issuer: ""
+      # issuer:
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: "okta-oauth-secret"
+      #       key: "issuer"
       clientId: ""
+      # clientId:
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: "okta-oauth-secret"
+      #       key: "client-id"
       clientSecret: ""
+      # clientSecret:
+      #   valueFrom:
+      #     secretKeyRef:
+      #       name: "okta-oauth-secret"
+      #       key: "client-secret"
     credentials:
       enabled: "auto"
 
@@ -22,7 +47,14 @@ global:
 
   postgresql:
     user: "ctrlplane"
+    # Password can be either a direct string value or a valueFrom reference
     password: "ctrlplane"
+    # Alternative: reference a secret for the password
+    # password:
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: "postgresql-secret"
+    #       key: "password"
     host: ""
     port: "5432"
     database: "ctrlplane"
@@ -35,13 +67,35 @@ global:
       bot:
         name: ""
         clientId: ""
+        # clientId:
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "github-bot-secret"
+        #       key: "client-id"
         appId: ""
+        # appId:
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "github-bot-secret"
+        #       key: "app-id"
         clientSecret: ""
+        # clientSecret:
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "github-bot-secret"
+        #       key: "client-secret"
         privateKey: ""
+        # privateKey:
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "github-bot-secret"
+        #       key: "private-key"
         webhookSecret: ""
-    azure:
-      appClientId: ""
-      appClientSecret: ""
+        # webhookSecret:
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "github-bot-secret"
+        #       key: "webhook-secret"
 
 webservice:
   install: true

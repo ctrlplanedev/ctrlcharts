@@ -55,18 +55,12 @@ spec:
               path: /api/v1/resources/proxy/health
               port: http
           env:
-            - name: POSTGRES_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}-connections
-                  key: POSTGRES_URL
+            {{- include "ctrlplane.postgresqlEnvVars" . | nindent 12 }}
             - name: VARIABLES_AES_256_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-encryption-key
                   key: AES_256_KEY
-            - name: AUTH_URL
-              value: {{ .Values.global.fqdn }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
           resources:

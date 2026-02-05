@@ -97,9 +97,6 @@ global:
         #       name: "github-bot-secret"
         #       key: "webhook-secret"
 
-webservice:
-  install: true
-
 jobs:
   install: true
 
@@ -111,9 +108,6 @@ ingress:
   class: ""
   labels: {}
   annotations: {}
-
-event-queue:
-  install: true
 
 otel:
   install: true

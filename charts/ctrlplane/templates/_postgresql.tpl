@@ -9,5 +9,5 @@ This handles both direct string values and valueFrom references
 {{ include "ctrlplane.envVar" (dict "name" "POSTGRES_DATABASE" "value" .Values.global.postgresql.database) }}
 {{ include "ctrlplane.envVar" (dict "name" "POSTGRES_PASSWORD" "value" .Values.global.postgresql.password) }}
 - name: POSTGRES_URL
-  value: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}"
+  value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DATABASE)"
 {{- end -}}

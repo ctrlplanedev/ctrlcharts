@@ -85,3 +85,53 @@ tests:
                 key: client-secret
                 name: okta-oauth-secret
           any: true
+  - it: sets github bot env vars as plain strings
+    template: charts/api/templates/deployment.yaml
+    set:
+      global:
+        integrations:
+          github:
+            bot:
+              name: github-bot
+              clientId: github-client-id
+              appId: "12345"
+              clientSecret: github-client-secret
+              privateKey: github-bot-cert
+              webhookSecret: github-webhook-secret
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_PRIVATE_KEY
+            value: github-bot-cert
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_NAME
+            value: github-bot
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_CLIENT_ID
+            value: github-client-id
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_APP_ID
+            value: "12345"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_CLIENT_SECRET
+            value: github-client-secret
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_WEBHOOK_SECRET
+            value: github-webhook-secret
+          any: true

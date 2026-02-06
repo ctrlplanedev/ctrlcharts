@@ -52,7 +52,7 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: POSTGRES_URL
-            value: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+            value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DATABASE)
           any: true
   - it: migrations uses direct postgres env vars
     template: charts/migrations/templates/job.yaml
@@ -99,7 +99,7 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: POSTGRES_URL
-            value: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+            value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DATABASE)
           any: true
   - it: api uses valueFrom postgres password
     template: charts/api/templates/deployment.yaml
@@ -129,7 +129,7 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: POSTGRES_URL
-            value: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+            value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DATABASE)
           any: true
   - it: migrations uses valueFrom postgres password
     template: charts/migrations/templates/job.yaml
@@ -159,5 +159,5 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: POSTGRES_URL
-            value: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+            value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DATABASE)
           any: true

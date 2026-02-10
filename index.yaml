@@ -3,6 +3,49 @@ entries:
   ctrlplane:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-02-10T21:34:47.85578201Z"
+    dependencies:
+    - condition: migrations.install
+      name: migrations
+      repository: file://charts/migrations
+      version: '*.*.*'
+    - condition: otel.install
+      name: otel
+      repository: file://charts/otel
+      version: '*.*.*'
+    - condition: pty-proxy.install
+      name: pty-proxy
+      repository: file://charts/pty-proxy
+      version: '*.*.*'
+    - condition: api.install
+      name: api
+      repository: file://charts/api
+      version: '*.*.*'
+    - condition: web.install
+      name: web
+      repository: file://charts/web
+      version: '*.*.*'
+    - condition: workspace-engine.install
+      name: workspace-engine
+      repository: file://charts/workspace-engine
+      version: '*.*.*'
+    - condition: workspace-engine-router.install
+      name: workspace-engine-router
+      repository: file://charts/workspace-engine-router
+      version: '*.*.*'
+    description: Ctrlplane Helm chart for Kubernetes
+    digest: 85501234e53b0deb9db1e02583302c7211c804c3e1f271d456b726bbe5ab96f3
+    maintainers:
+    - email: support@ctrlplane.com
+      name: ctrlplane
+      url: https://ctrlplane.dev
+    name: ctrlplane
+    type: application
+    urls:
+    - ctrlplane-0.10.2.tgz
+    version: 0.10.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-02-10T21:22:22.068309546Z"
     dependencies:
     - condition: migrations.install
@@ -2974,4 +3017,4 @@ entries:
     urls:
     - ctrlplane-0.1.6.tgz
     version: 0.1.6
-generated: "2026-02-10T21:22:22.068670101Z"
+generated: "2026-02-10T21:34:47.856043967Z"

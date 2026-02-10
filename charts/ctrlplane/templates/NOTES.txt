@@ -48,10 +48,12 @@
 {{- else if ne .Values.global.integrations.github.bot.clientSecret "" }}
    ⚠ GitHub bot configured directly in values
 {{- end }}
+{{- if .Values.global.integrations.azure }}
 {{- if include "ctrlplane.isValueFrom" .Values.global.integrations.azure.appClientSecret }}
    ✓ Azure app configured via secret reference
 {{- else if ne .Values.global.integrations.azure.appClientSecret "" }}
    ⚠ Azure app configured directly in values
+{{- end }}
 {{- end }}
 
 3. Using valueFrom pattern for secrets:

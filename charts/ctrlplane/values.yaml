@@ -59,7 +59,10 @@ global:
     port: "5432"
     database: "ctrlplane"
 
-  kafkaBrokers: localhost:9092
+  kafka:
+    brokers: localhost:9092
+    groupId: workspace-engine
+    topic: workspace-events
 
   integrations:
     github:

@@ -44,7 +44,11 @@ spec:
               protocol: TCP
           env:
             - name: KAFKA_BROKERS
-              value: {{ .Values.global.kafkaBrokers | quote }}
+              value: {{ .Values.global.kafka.brokers | quote }}
+            - name: KAFKA_GROUP_ID
+              value: {{ .Values.global.kafka.groupId | quote }}
+            - name: KAFKA_TOPIC
+              value: {{ .Values.global.kafka.topic | quote }}
 
             - name: POD_NAME
               valueFrom:

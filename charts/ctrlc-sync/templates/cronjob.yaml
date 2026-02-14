@@ -10,7 +10,7 @@ spec:
   timeZone: "{{ .Values.cron.timeZone }}"
   {{- end }}
   concurrencyPolicy: "{{ .Values.cron.concurrencyPolicy }}"
-  {{- if .Values.cron.startingDeadlineSeconds }}
+  {{- if ne .Values.cron.startingDeadlineSeconds nil }}
   startingDeadlineSeconds: {{ .Values.cron.startingDeadlineSeconds }}
   {{- end }}
   successfulJobsHistoryLimit: {{ .Values.cron.successfulJobsHistoryLimit }}
@@ -28,10 +28,10 @@ spec:
         {{- end }}
     spec:
       backoffLimit: {{ .Values.job.backoffLimit }}
-      {{- if .Values.job.activeDeadlineSeconds }}
+      {{- if ne .Values.job.activeDeadlineSeconds nil }}
       activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
       {{- end }}
-      {{- if .Values.job.ttlSecondsAfterFinished }}
+      {{- if ne .Values.job.ttlSecondsAfterFinished nil }}
       ttlSecondsAfterFinished: {{ .Values.job.ttlSecondsAfterFinished }}
       {{- end }}
       template:

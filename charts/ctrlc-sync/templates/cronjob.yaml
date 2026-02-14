@@ -45,7 +45,6 @@ spec:
             {{- with .Values.podLabels }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
-        restartPolicy: OnFailure
         spec:
           {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
@@ -56,6 +55,7 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          restartPolicy: OnFailure
           containers:
             - name: {{ .Chart.Name }}
               {{- with .Values.securityContext }}

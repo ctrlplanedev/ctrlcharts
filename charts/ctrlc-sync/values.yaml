@@ -1,5 +1,6 @@
 ctrlc:
   target: "kubernetes"
+  provider: ""
   # All of following values under the ctrlc config from this point
   # can be provided directly as strings or as valueFrom
   # reference -> https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.35/#envvarsource-v1-core

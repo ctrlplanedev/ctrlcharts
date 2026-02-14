@@ -65,7 +65,7 @@ spec:
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["ctrlc"]
-              args: ["sync", "kubernetes"]
+              args: ["sync", "kubernetes", "--provider={{ .Values.ctrlc.provider }}"]
               env:
                 {{- include "ctrlc-sync.envs" . | nindent 16 }}
               {{- with .Values.resources }}

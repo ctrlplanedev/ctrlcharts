@@ -1,0 +1,15 @@
+{{- if .Values.rbac.enabled -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "ctrlc-sync.clusterRole.k8s" . }}
+  labels:
+    {{- include "ctrlc-sync.labels" . | nindent 4 }}
+rules:
+- apiGroups: ["apps"]
+  resources: ["statefulsets", "deployments"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["get", "list", "watch"]
+{{- end }}

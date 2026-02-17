@@ -49,11 +49,17 @@ spec:
             - name: WORKSPACE_ENGINE_ROUTER_URL
               value: http://{{ .Release.Name }}-workspace-engine-router.{{ .Release.Namespace }}.svc.cluster.local:9090
 
+            {{- if include "ctrlplane.isValueFrom" .Values.global.secrets.encryptionKey }}
+            - name: VARIABLES_AES_256_KEY
+              valueFrom:
+                {{- toYaml .Values.global.secrets.encryptionKey.valueFrom | nindent 16 }}
+            {{- else }}
             - name: VARIABLES_AES_256_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.secrets.encryptionKey.secretName | default (printf "%s-encryption-key" .Release.Name) }}
-                  key: {{ .Values.global.secrets.encryptionKey.secretKey | default "AES_256_KEY" }}
+                  name: {{ .Release.Name }}-encryption-key
+                  key: AES_256_KEY
+            {{- end }}
 
             # Auth providers with valueFrom support
             {{- include "ctrlplane.authProviderEnvVars" . | nindent 12 }}
@@ -68,11 +74,17 @@ spec:
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafka.brokers | quote }}
 
+            {{- if include "ctrlplane.isValueFrom" .Values.global.secrets.authSecret }}
+            - name: AUTH_SECRET
+              valueFrom:
+                {{- toYaml .Values.global.secrets.authSecret.valueFrom | nindent 16 }}
+            {{- else }}
             - name: AUTH_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.secrets.authSecret.secretName | default (include "api.fullname" .) }}
-                  key: {{ .Values.global.secrets.authSecret.secretKey | default "AUTH_SECRET" }}
+                  name: {{ include "api.fullname" . }}
+                  key: AUTH_SECRET
+            {{- end }}
 
             - name: GITHUB_URL
               value: {{ include "ctrlplane.githubUrl" . }}

@@ -1,5 +1,5 @@
 {{- if .Values.ingress.create }}
-{{- $fqdn := .Values.global.fqdn | trimPrefix "https://" | trimPrefix "http://" -}}
+{{- $fqdn := .Values.global.fqdn | trimPrefix "https://" | trimPrefix "http://" | trimSuffix "/" -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

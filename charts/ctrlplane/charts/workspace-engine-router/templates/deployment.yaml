@@ -46,7 +46,7 @@ spec:
               protocol: TCP
           env:
             - name: KAFKA_BROKERS
-              value: {{ .Values.global.kafkaBrokers | quote }}
+              value: {{ .Values.global.kafka.brokers | quote }}
 
             {{- include "ctrlplane.postgresqlEnvVars" . | nindent 12 }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}

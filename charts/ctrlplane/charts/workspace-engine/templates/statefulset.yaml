@@ -43,6 +43,11 @@ spec:
               containerPort: 8081
               protocol: TCP
           env:
+            - name: AES_256_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-encryption-key
+                  key: AES_256_KEY
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafka.brokers | quote }}
             - name: KAFKA_GROUP_ID

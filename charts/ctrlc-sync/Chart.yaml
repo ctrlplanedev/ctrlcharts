@@ -1,0 +1,11 @@
+apiVersion: v2
+name: ctrlc-sync
+description: A Helm chart for ctrlc sync jobs in Kubernetes
+type: application
+version: 0.1.6
+appVersion: "0.17.1"
+
+maintainers:
+  - name: ctrlplane
+    email: support@ctrlplane.com
+    url: https://ctrlplane.dev

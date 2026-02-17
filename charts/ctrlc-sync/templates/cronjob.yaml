@@ -1,0 +1,95 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "ctrlc-sync.fullname" . }}
+  labels:
+    {{- include "ctrlc-sync.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.cron.schedule }}"
+  {{- if .Values.cron.timeZone }}
+  timeZone: "{{ .Values.cron.timeZone }}"
+  {{- end }}
+  concurrencyPolicy: "{{ .Values.cron.concurrencyPolicy }}"
+  {{- if ne .Values.cron.startingDeadlineSeconds nil }}
+  startingDeadlineSeconds: {{ .Values.cron.startingDeadlineSeconds }}
+  {{- end }}
+  successfulJobsHistoryLimit: {{ .Values.cron.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.cron.failedJobsHistoryLimit }}
+  jobTemplate:
+    metadata:
+      {{- with .Values.jobAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ctrlc-sync.labels" . | nindent 8 }}
+        {{- with .Values.jobLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      backoffLimit: {{ .Values.job.backoffLimit }}
+      {{- if ne .Values.job.activeDeadlineSeconds nil }}
+      activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
+      {{- end }}
+      {{- if ne .Values.job.ttlSecondsAfterFinished nil }}
+      ttlSecondsAfterFinished: {{ .Values.job.ttlSecondsAfterFinished }}
+      {{- end }}
+      template:
+        metadata:
+          {{- with .Values.podAnnotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          labels:
+            {{- include "ctrlc-sync.labels" . | nindent 12 }}
+            {{- with .Values.podLabels }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          serviceAccountName: {{ include "ctrlc-sync.serviceAccountName" . }}
+          {{- with .Values.podSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          restartPolicy: OnFailure
+          containers:
+            - name: {{ .Chart.Name }}
+              {{- with .Values.securityContext }}
+              securityContext:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command: ["ctrlc"]
+              args: ["sync", "kubernetes", "--provider={{ .Values.ctrlc.provider }}", "--cluster-name={{ .Values.ctrlc.name }}"]
+              env:
+                {{- include "ctrlc-sync.envs" . | nindent 16 }}
+              {{- with .Values.resources }}
+              resources:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with .Values.volumeMounts }}
+              volumeMounts:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+          {{- with .Values.volumes }}
+          volumes:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+

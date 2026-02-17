@@ -52,8 +52,8 @@ spec:
             - name: VARIABLES_AES_256_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Release.Name }}-encryption-key
-                  key: AES_256_KEY
+                  name: {{ .Values.global.secrets.encryptionKey.secretName | default (printf "%s-encryption-key" .Release.Name) }}
+                  key: {{ .Values.global.secrets.encryptionKey.secretKey | default "AES_256_KEY" }}
 
             # Auth providers with valueFrom support
             {{- include "ctrlplane.authProviderEnvVars" . | nindent 12 }}
@@ -71,8 +71,8 @@ spec:
             - name: AUTH_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "api.fullname" . }}
-                  key: AUTH_SECRET
+                  name: {{ .Values.global.secrets.authSecret.secretName | default (include "api.fullname" .) }}
+                  key: {{ .Values.global.secrets.authSecret.secretKey | default "AUTH_SECRET" }}
 
             - name: GITHUB_URL
               value: {{ include "ctrlplane.githubUrl" . }}

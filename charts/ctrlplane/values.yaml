@@ -5,6 +5,19 @@ global:
   extraEnv: {}
   enableNewPolicyEngine: false
 
+  # Secret management (propagated to subcharts via global).
+  # Set create: false when secrets are managed externally (e.g. ExternalSecrets).
+  # Override secretName/secretKey to reference a custom secret.
+  secrets:
+    authSecret:
+      create: true
+      secretName: ""  # defaults to <release>-api
+      secretKey: AUTH_SECRET
+    encryptionKey:
+      create: true
+      secretName: ""  # defaults to <release>-encryption-key
+      secretKey: AES_256_KEY
+
   authProviders:
     google:
       clientId: ""
@@ -111,6 +124,9 @@ ingress:
   class: ""
   labels: {}
   annotations: {}
+  tls:
+    enabled: true
+    secretName: ""  # defaults to <fullname>-tls when empty
 
 otel:
   install: true

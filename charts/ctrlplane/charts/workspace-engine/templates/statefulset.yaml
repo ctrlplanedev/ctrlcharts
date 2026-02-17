@@ -43,11 +43,17 @@ spec:
               containerPort: 8081
               protocol: TCP
           env:
+            {{- if include "ctrlplane.isValueFrom" .Values.global.secrets.encryptionKey }}
+            - name: AES_256_KEY
+              valueFrom:
+                {{- toYaml .Values.global.secrets.encryptionKey.valueFrom | nindent 16 }}
+            {{- else }}
             - name: AES_256_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-encryption-key
                   key: AES_256_KEY
+            {{- end }}
             - name: KAFKA_BROKERS
               value: {{ .Values.global.kafka.brokers | quote }}
             - name: KAFKA_GROUP_ID
@@ -71,11 +77,17 @@ spec:
 
             {{- include "ctrlplane.postgresqlEnvVars" . | nindent 12 }}
             {{- include "ctrlplane.githubBotEnvVars" . | nindent 12 }}
+            {{- if include "ctrlplane.isValueFrom" .Values.global.secrets.encryptionKey }}
+            - name: VARIABLES_AES_256_KEY
+              valueFrom:
+                {{- toYaml .Values.global.secrets.encryptionKey.valueFrom | nindent 16 }}
+            {{- else }}
             - name: VARIABLES_AES_256_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-encryption-key
                   key: AES_256_KEY
+            {{- end }}
             {{- include "ctrlplane.extraEnv" . | nindent 12 }}
             {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
           resources:

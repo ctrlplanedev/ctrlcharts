@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   ctrlc-sync:
   - apiVersion: v2
+    appVersion: 0.18.1
+    created: "2026-02-19T06:28:14.220832107Z"
+    description: A Helm chart for ctrlc sync jobs in Kubernetes
+    digest: b732d54d26da00c84707c4bd7b677307eed6a18a939690a14d1298325bbaa7df
+    maintainers:
+    - email: support@ctrlplane.com
+      name: ctrlplane
+      url: https://ctrlplane.dev
+    name: ctrlc-sync
+    type: application
+    urls:
+    - ctrlc-sync-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
     appVersion: 0.17.1
     created: "2026-02-17T01:44:54.564893568Z"
     description: A Helm chart for ctrlc sync jobs in Kubernetes
@@ -3159,4 +3173,4 @@ entries:
     urls:
     - ctrlplane-0.1.6.tgz
     version: 0.1.6
-generated: "2026-02-17T23:06:18.134364591Z"
+generated: "2026-02-19T06:28:14.221072669Z"

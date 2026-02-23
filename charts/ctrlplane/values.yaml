@@ -30,7 +30,7 @@ global:
       #     secretKeyRef:
       #       name: "google-oauth-secret"
       #       key: "client-id"
-      clientSecret: ""
+      clientSecret:
       # clientSecret:
       #   valueFrom:
       #     secretKeyRef:
@@ -49,7 +49,7 @@ global:
       #     secretKeyRef:
       #       name: "okta-oauth-secret"
       #       key: "client-id"
-      clientSecret: ""
+      clientSecret:
       # clientSecret:
       #   valueFrom:
       #     secretKeyRef:

@@ -15,5 +15,8 @@ if ! helm plugin list 2>/dev/null | awk '{print $1}' | grep -qx "unittest"; then
   exit 1
 fi
 
+echo "Building dependencies for ${CHART_DIR}"
+helm dependency build "${CHART_DIR}"
+
 echo "Running helm-unittest for ${CHART_DIR}"
 helm unittest "${CHART_DIR}"

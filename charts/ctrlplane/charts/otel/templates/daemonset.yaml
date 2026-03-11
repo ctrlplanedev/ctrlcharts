@@ -65,8 +65,6 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: status.podIP
-            {{- include "otel.extraEnv" (dict "global" $.Values.global "local" .Values) | nindent 12 }}
-            {{- include "ctrlplane.extraEnvFrom" (dict "root" $ "local" .) | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

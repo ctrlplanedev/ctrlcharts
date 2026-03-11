@@ -48,11 +48,4 @@ spec:
                 name: {{ .Release.Name }}-api
                 port:
                   number: 8081
-          - pathType: Prefix
-            path: /api/v1/resources/proxy
-            backend:
-              service:
-                name: {{ .Release.Name }}-pty-proxy
-                port:
-                  number: 4000
 {{- end }}

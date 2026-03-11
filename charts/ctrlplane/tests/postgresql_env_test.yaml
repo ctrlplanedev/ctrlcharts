@@ -2,7 +2,7 @@ suite: postgresql env vars
 templates:
   - charts/api/templates/deployment.yaml
   - charts/migrations/templates/job.yaml
-  - charts/workspace-engine/templates/statefulset.yaml
+  - charts/workspace-engine/templates/deployment.yaml
   - templates/secrets.yaml
 release:
   name: ctrlplane

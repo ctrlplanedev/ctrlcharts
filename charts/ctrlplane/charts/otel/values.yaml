@@ -28,9 +28,6 @@ image:
 # Tolerations for pod scheduling
 tolerations: []
 
-extraEnv: {}
-extraEnvFrom: {}
-
 extraCors: []
 
 service: {}

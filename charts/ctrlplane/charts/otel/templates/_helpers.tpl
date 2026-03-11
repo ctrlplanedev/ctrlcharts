@@ -65,19 +65,6 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Returns the extraEnv keys and values to inject into containers.
-
-Global values will override any chart-specific values.
-*/}}
-{{- define "otel.extraEnv" -}}
-{{- $allExtraEnv := merge (default (dict) .local.extraEnv) .global.extraEnv -}}
-{{- range $key, $value := $allExtraEnv }}
-- name: {{ $key }}
-  value: {{ $value | quote }}
-{{- end -}}
-{{- end -}}
-
-{{/*
 Returns a list of _common_ labels to be shared across all
 app deployments and other shared objects.
 */}}

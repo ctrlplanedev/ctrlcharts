@@ -175,20 +175,6 @@ tests:
                   number: 8081
           any: true
 
-  - it: routes /api/v1/resources/proxy to pty-proxy on port 4000
-    asserts:
-      - contains:
-          path: spec.rules[0].http.paths
-          content:
-            pathType: Prefix
-            path: /api/v1/resources/proxy
-            backend:
-              service:
-                name: ctrlplane-pty-proxy
-                port:
-                  number: 4000
-          any: true
-
   - it: falls back to web via defaultBackend
     asserts:
       - equal:

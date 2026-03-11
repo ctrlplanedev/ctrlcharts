@@ -135,3 +135,141 @@ tests:
             name: GITHUB_WEBHOOK_SECRET
             value: github-webhook-secret
           any: true
+  - it: uses valueFrom for google auth secrets
+    template: charts/api/templates/deployment.yaml
+    set:
+      global:
+        authProviders:
+          google:
+            clientId:
+              valueFrom:
+                secretKeyRef:
+                  name: google-oauth-secret
+                  key: client-id
+            clientSecret:
+              valueFrom:
+                secretKeyRef:
+                  name: google-oauth-secret
+                  key: client-secret
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_GOOGLE_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: google-oauth-secret
+                key: client-id
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_GOOGLE_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: google-oauth-secret
+                key: client-secret
+          any: true
+  - it: uses valueFrom for github bot secrets
+    template: charts/api/templates/deployment.yaml
+    set:
+      global:
+        integrations:
+          github:
+            bot:
+              name: my-github-bot
+              clientId:
+                valueFrom:
+                  secretKeyRef:
+                    name: github-bot-secret
+                    key: client-id
+              appId:
+                valueFrom:
+                  secretKeyRef:
+                    name: github-bot-secret
+                    key: app-id
+              clientSecret:
+                valueFrom:
+                  secretKeyRef:
+                    name: github-bot-secret
+                    key: client-secret
+              privateKey:
+                valueFrom:
+                  secretKeyRef:
+                    name: github-bot-secret
+                    key: private-key
+              webhookSecret:
+                valueFrom:
+                  secretKeyRef:
+                    name: github-bot-secret
+                    key: webhook-secret
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_NAME
+            value: my-github-bot
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: github-bot-secret
+                key: client-id
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_APP_ID
+            valueFrom:
+              secretKeyRef:
+                name: github-bot-secret
+                key: app-id
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_BOT_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: github-bot-secret
+                key: private-key
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_WEBHOOK_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: github-bot-secret
+                key: webhook-secret
+          any: true
+  - it: sets BASE_URL and GITHUB_URL from global values
+    template: charts/api/templates/deployment.yaml
+    set:
+      global:
+        fqdn: "https://app.ctrlplane.dev"
+        integrations:
+          github:
+            url: "https://github.example.com"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: BASE_URL
+            value: "https://app.ctrlplane.dev"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: AUTH_URL
+            value: "https://app.ctrlplane.dev"
+          any: true
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: GITHUB_URL
+            value: "https://github.example.com"
+          any: true

@@ -139,6 +139,7 @@ api:
     BASE_URL: "{{ .Values.global.fqdn }}"
     AUTH_URL: "{{ .Values.global.fqdn }}"
     GITHUB_URL: "{{ .Values.global.integrations.github.url }}"
+    WORKSPACE_ENGINE_URL: "http://{{ .Release.Name }}-workspace-engine:8081"
 
   envTpls:
     - '{{ include "ctrlplane.githubBotEnvVars" . }}'

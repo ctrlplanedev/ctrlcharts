@@ -4,7 +4,7 @@ dependencies:
   version: 0.1.6
 - name: otel
   repository: file://charts/otel
-  version: 0.1.0
+  version: 0.2.0
 - name: wandb-base
   repository: https://charts.wandb.ai
   version: 0.11.11
@@ -14,5 +14,5 @@ dependencies:
 - name: wandb-base
   repository: https://charts.wandb.ai
   version: 0.11.11
-digest: sha256:a15f24e455ca221b9506bdf09b33917224777f4ea68bb4e89a8eb794fbcb89e0
-generated: "2026-03-11T18:06:48.680888-04:00"
+digest: sha256:11be9c366718847a7f76355f54f3816cd7223e2d9feb63a28d90e6397ad0cc50
+generated: "2026-04-13T16:19:18.331308-05:00"

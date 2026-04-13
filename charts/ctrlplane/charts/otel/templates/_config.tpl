@@ -51,8 +51,10 @@ processors:
     limit_percentage: 80
     spike_limit_percentage: 25
   k8sattributes:
+    {{- if ne (default "DaemonSet" .Values.workload.kind) "Deployment" }}
     filter:
       node_from_env_var: K8S_NODE_NAME
+    {{- end }}
     passthrough: false
     pod_association:
     - sources:

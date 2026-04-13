@@ -1,4 +1,9 @@
 ctrlc:
+  # leave resourceTypes blank to sync all
+  # resourceTypes:
+  # - nodes
+  # - deployments
+  # - namespaces
   target: "kubernetes"
   provider: ""
   # All of following values under the ctrlc config from this point

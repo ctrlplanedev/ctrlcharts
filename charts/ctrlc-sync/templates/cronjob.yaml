@@ -1,3 +1,4 @@
+{{- $validResources := list "nodes" "namespaces" "deployments" -}}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -65,7 +66,18 @@ spec:
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["ctrlc"]
-              args: ["sync", "kubernetes", "--provider={{ .Values.ctrlc.provider }}", "--cluster-name={{ .Values.ctrlc.name }}"]
+              args:
+              - sync
+              - kubernetes
+              - --provider={{ .Values.ctrlc.provider }}
+              - --cluster-name={{ .Values.ctrlc.name }}
+              {{- range $resource := .Values.ctrlc.resourceTypes }}
+              {{- if not (has $resource $validResources) }}
+              {{- fail (printf "invalid ctrlc.resources entry %q. Allowed values are: %s" $resource (join ", " $validResources)) }}
+              {{- end }}
+              - -s
+              - {{ . | quote }}
+              {{- end }}
               env:
                 {{- include "ctrlc-sync.envs" . | nindent 16 }}
               {{- with .Values.resources }}

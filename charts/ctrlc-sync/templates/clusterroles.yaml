@@ -10,6 +10,6 @@ rules:
   resources: ["statefulsets", "deployments"]
   verbs: ["get", "list", "watch"]
 - apiGroups: [""]
-  resources: ["namespaces"]
+  resources: ["namespaces", "nodes"]
   verbs: ["get", "list", "watch"]
 {{- end }}

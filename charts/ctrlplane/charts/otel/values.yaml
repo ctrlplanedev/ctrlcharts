@@ -1,6 +1,24 @@
 nameOverride: ""
 fullnameOverride: ""
 
+# "DaemonSet" (default): one collector per node, needed for host-level
+# receivers (hostMetrics, logsCollection, kubeletMetrics).
+# "Deployment": central collector behind the Service, suitable when only
+# network receivers (otlp, statsd) are used.
+workload:
+  kind: DaemonSet
+
+# deployment:
+#   replicas: 2
+#   revisionHistoryLimit: 10
+#   strategy:
+#     type: RollingUpdate
+#     rollingUpdate:
+#       maxSurge: 1
+#       maxUnavailable: 0
+#   labels: {}
+#   annotations: {}
+
 config:
   service:
     pipelines:
@@ -27,6 +45,15 @@ image:
 
 # Tolerations for pod scheduling
 tolerations: []
+
+# Extra environment variables sourced from Secrets/ConfigMaps.
+# Example:
+#   extraEnvFrom:
+#     DD_API_KEY:
+#       secretKeyRef:
+#         name: my-secret
+#         key: api-key
+extraEnvFrom: {}
 
 extraCors: []
 

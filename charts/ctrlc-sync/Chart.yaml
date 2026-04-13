@@ -2,7 +2,7 @@ apiVersion: v2
 name: ctrlc-sync
 description: A Helm chart for ctrlc sync jobs in Kubernetes
 type: application
-version: 0.1.7
+version: 0.1.8
 appVersion: "0.18.1"
 
 maintainers:

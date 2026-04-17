@@ -124,7 +124,7 @@ ingress:
   annotations: {}
   tls:
     enabled: false
-    secretName: "" # defaults to <fullname>-tls when empty
+    secretName: ""  # defaults to <fullname>-tls when empty
 
 otel:
   install: true

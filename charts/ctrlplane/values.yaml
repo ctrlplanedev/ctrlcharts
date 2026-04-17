@@ -241,6 +241,7 @@ workspace-engine:
         name: pprof
 
   env:
+    BASE_URL: "{{ .Values.global.fqdn }}"
     GITHUB_URL: "{{ .Values.global.integrations.github.url }}"
 
   envTpls:

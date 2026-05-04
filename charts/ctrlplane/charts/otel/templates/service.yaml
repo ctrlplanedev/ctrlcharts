@@ -32,4 +32,4 @@ spec:
       protocol: TCP
       name: otlp-http
   selector:
-    {{- include "otel.labels" . | nindent 4 }}
+    {{- include "otel.selectorLabels" . | nindent 4 }}

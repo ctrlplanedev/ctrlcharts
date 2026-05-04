@@ -15,8 +15,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "ctrlplane.selectorLabels" $ | nindent 6 }}
-      {{- include "otel.labels" . | nindent 6 }}
+      {{- include "otel.selectorLabels" . | nindent 6 }}
   template:
 {{ include "otel.podTemplate" . }}
 {{- end }}

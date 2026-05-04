@@ -130,6 +130,44 @@ entries:
   ctrlplane:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-05-04T18:49:24.485913655Z"
+    dependencies:
+    - condition: migrations.install
+      name: migrations
+      repository: file://charts/migrations
+      version: '*.*.*'
+    - condition: otel.install
+      name: otel
+      repository: file://charts/otel
+      version: '*.*.*'
+    - alias: web
+      condition: web.install
+      name: wandb-base
+      repository: https://charts.wandb.ai
+      version: 0.11.11
+    - alias: api
+      condition: api.install
+      name: wandb-base
+      repository: https://charts.wandb.ai
+      version: 0.11.11
+    - alias: workspace-engine
+      condition: workspace-engine.install
+      name: wandb-base
+      repository: https://charts.wandb.ai
+      version: 0.11.11
+    description: Ctrlplane Helm chart for Kubernetes
+    digest: da545c373ceec89f57f4cbd9afaf1f63ec1a770ff48b9eff8efdcd372258b776
+    maintainers:
+    - email: support@ctrlplane.com
+      name: ctrlplane
+      url: https://ctrlplane.dev
+    name: ctrlplane
+    type: application
+    urls:
+    - ctrlplane-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-04-17T20:45:11.369916722Z"
     dependencies:
     - condition: migrations.install
@@ -3382,4 +3420,4 @@ entries:
     urls:
     - ctrlplane-0.1.6.tgz
     version: 0.1.6
-generated: "2026-04-17T20:45:11.37023153Z"
+generated: "2026-05-04T18:49:24.486179916Z"

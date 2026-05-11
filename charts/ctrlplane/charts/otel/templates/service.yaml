@@ -18,6 +18,9 @@ metadata:
     {{- end }}
 spec:
   type: {{ .Values.service.type }}
+  {{- if eq (default "DaemonSet" .Values.workload.kind) "DaemonSet" }}
+  internalTrafficPolicy: Local
+  {{- end }}
   ports:
     - port: 9109
       protocol: TCP

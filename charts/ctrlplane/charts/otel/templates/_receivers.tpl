@@ -159,6 +159,7 @@ receivers:
 receivers:
   k8s_cluster:
     collection_interval: 10s
+    k8s_leader_elector: k8s_leader_elector
 {{- end }}
 
 {{- define "otel.statsdReceiver" -}}

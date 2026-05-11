@@ -41,6 +41,12 @@ exporters:
 {{- define "otel.extensions" -}}
 extensions:
   health_check: {}
+  {{- if .Values.presets.receivers.kubernetesCluster }}
+  k8s_leader_elector:
+    auth_type: serviceAccount
+    lease_name: {{ include "otel.fullname" . }}-leader
+    lease_namespace: {{ .Release.Namespace }}
+  {{- end }}
 {{- end }}
 
 {{- define "otel.processors" -}}
@@ -91,6 +97,9 @@ processors:
 service:
   extensions:
   - health_check
+  {{- if .Values.presets.receivers.kubernetesCluster }}
+  - k8s_leader_elector
+  {{- end }}
   pipelines: {}
   telemetry:
     metrics:
